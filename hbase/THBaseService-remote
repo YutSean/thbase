@@ -13,7 +13,7 @@ if sys.version_info[0] > 2:
     from urllib.parse import urlparse
 else:
     from urlparse import urlparse
-from thrift.transport import TTransport, TSocket, TSSLSocket, THttpClient
+from thrift.transport import TSocket, TSSLSocket, THttpClient
 from thrift.protocol import TBinaryProtocol
 
 import THBaseService

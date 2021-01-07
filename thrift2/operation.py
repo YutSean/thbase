@@ -1,5 +1,5 @@
 from typing import List, Union
-from hbase.ttypes import TGet, TDelete, TScan, TPut, TColumnValue, TColumn
+from pythbase.hbase import TGet, TDelete, TScan, TPut, TColumnValue, TColumn
 
 
 class Operation(object):

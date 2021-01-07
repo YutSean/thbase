@@ -1,5 +1,5 @@
 from handlers import ExceptionHandler, MessageType
-from pythbase.thrift2.hbase.ttypes import TException
+from pythbase.hbase import TException
 
 import logging
 import time

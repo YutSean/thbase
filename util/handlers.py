@@ -1,5 +1,5 @@
 from enum import Enum
-from pythbase.thrift2.hbase.ttypes import TApplicationException, TIOError, TIllegalArgument
+from pythbase.hbase import TApplicationException, TIOError, TIllegalArgument
 from thrift.transport.TTransport import TTransportException
 
 import logging

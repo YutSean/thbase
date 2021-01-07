@@ -1,4 +1,4 @@
-from pythbase.thrift2.hbase import THBaseService
+from pythbase.hbase import THBaseService
 from pythbase.clientbase import ClientBase
 from pythbase.thrift2.table import Table
 import logging
