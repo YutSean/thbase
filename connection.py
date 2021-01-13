@@ -58,12 +58,8 @@ class Connection(object):
         """
         if self.use_http:
             # if use http transport,
-            if self.use_ssl:
-                prefix = 'https://'
-                self.transport = THttpClient(uri_or_host=prefix + self.host)
-            else:
-                prefix = 'http://'
-                self.transport = THttpClient(uri_or_host=prefix + self.host + ':' + str(self.port) + '/thrift.jsp')
+            prefix = 'https://' if self.use_ssl else 'http://'
+            self.transport = THttpClient(uri_or_host=prefix + self.host + ':' + str(self.port))
             self.protocol = TBinaryProtocol.TBinaryProtocol(self.transport)
             return
 

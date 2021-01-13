@@ -75,8 +75,11 @@ class ClientBase(object):
         try:
             if not self.connection.is_open():
                 self.connection.open()
+                return self.connection.is_open()
+            return True
         except Exception as e:
             self.notify(MessageType.ERROR, e)
+            return self.open_connection()
 
     def close_connection(self):
         try:
@@ -84,6 +87,7 @@ class ClientBase(object):
                 self.connection.close()
         except Exception as e:
             self.notify(MessageType.ERROR, e)
+            return self.close_connection()
 
     def put_row(self, table_name, put):
         """

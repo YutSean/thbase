@@ -301,6 +301,358 @@ class Iface(object):
         """
         pass
 
+    def getTableDescriptor(self, table):
+        """
+        Get a table descriptor.
+        @return the TableDescriptor of the giving tablename
+
+
+        Parameters:
+         - table: the tablename of the table to get tableDescriptor
+
+        """
+        pass
+
+    def getTableDescriptors(self, tables):
+        """
+        Get table descriptors of tables.
+        @return the TableDescriptor of the giving tablename
+
+
+        Parameters:
+         - tables: the tablename list of the tables to get tableDescriptor
+
+        """
+        pass
+
+    def tableExists(self, tableName):
+        """
+
+        @return true if table exists already, false if not
+
+
+        Parameters:
+         - tableName: the tablename of the tables to check
+
+        """
+        pass
+
+    def getTableDescriptorsByPattern(self, regex, includeSysTables):
+        """
+        Get table descriptors of tables that match the given pattern
+        @return the tableDescriptors of the matching table
+
+
+        Parameters:
+         - regex: The regular expression to match against
+         - includeSysTables: set to false if match only against userspace tables
+
+        """
+        pass
+
+    def getTableDescriptorsByNamespace(self, name):
+        """
+        Get table descriptors of tables in the given namespace
+        @return the tableDescriptors in the namespce
+
+
+        Parameters:
+         - name: The namesapce's name
+
+        """
+        pass
+
+    def getTableNamesByPattern(self, regex, includeSysTables):
+        """
+        Get table names of tables that match the given pattern
+        @return the table names of the matching table
+
+
+        Parameters:
+         - regex: The regular expression to match against
+         - includeSysTables: set to false if match only against userspace tables
+
+        """
+        pass
+
+    def getTableNamesByNamespace(self, name):
+        """
+        Get table names of tables in the given namespace
+        @return the table names of the matching table
+
+
+        Parameters:
+         - name: The namesapce's name
+
+        """
+        pass
+
+    def createTable(self, desc, splitKeys):
+        """
+        Creates a new table with an initial set of empty regions defined by the specified split keys.
+        The total number of regions created will be the number of split keys plus one. Synchronous
+        operation.
+
+
+        Parameters:
+         - desc: table descriptor for table
+         - splitKeys: rray of split keys for the initial regions of the table
+
+        """
+        pass
+
+    def deleteTable(self, tableName):
+        """
+        Deletes a table. Synchronous operation.
+
+
+        Parameters:
+         - tableName: the tablename to delete
+
+        """
+        pass
+
+    def truncateTable(self, tableName, preserveSplits):
+        """
+        Truncate a table. Synchronous operation.
+
+
+        Parameters:
+         - tableName: the tablename to truncate
+         - preserveSplits: whether to  preserve previous splits
+
+        """
+        pass
+
+    def enableTable(self, tableName):
+        """
+        Enalbe a table
+
+
+        Parameters:
+         - tableName: the tablename to enable
+
+        """
+        pass
+
+    def disableTable(self, tableName):
+        """
+        Disable a table
+
+
+        Parameters:
+         - tableName: the tablename to disable
+
+        """
+        pass
+
+    def isTableEnabled(self, tableName):
+        """
+
+        @return true if table is enabled, false if not
+
+
+        Parameters:
+         - tableName: the tablename to check
+
+        """
+        pass
+
+    def isTableDisabled(self, tableName):
+        """
+
+        @return true if table is disabled, false if not
+
+
+        Parameters:
+         - tableName: the tablename to check
+
+        """
+        pass
+
+    def isTableAvailable(self, tableName):
+        """
+
+        @return true if table is available, false if not
+
+
+        Parameters:
+         - tableName: the tablename to check
+
+        """
+        pass
+
+    def isTableAvailableWithSplit(self, tableName, splitKeys):
+        """
+         * Use this api to check if the table has been created with the specified number of splitkeys
+         * which was used while creating the given table. Note : If this api is used after a table's
+         * region gets splitted, the api may return false.
+         *
+         * @return true if table is available, false if not
+         *
+         * @deprecated Since 2.2.0. Because the same method in Table interface has been deprecated
+         * since 2.0.0, we will remove it in 3.0.0 release.
+         * Use {@link #isTableAvailable(TTableName tableName)} instead
+        *
+
+        Parameters:
+         - tableName: the tablename to check
+         - splitKeys: keys to check if the table has been created with all split keys
+
+        """
+        pass
+
+    def addColumnFamily(self, tableName, column):
+        """
+        Add a column family to an existing table. Synchronous operation.
+
+
+        Parameters:
+         - tableName: the tablename to add column family to
+         - column: column family descriptor of column family to be added
+
+        """
+        pass
+
+    def deleteColumnFamily(self, tableName, column):
+        """
+        Delete a column family from a table. Synchronous operation.
+
+
+        Parameters:
+         - tableName: the tablename to delete column family from
+         - column: name of column family to be deleted
+
+        """
+        pass
+
+    def modifyColumnFamily(self, tableName, column):
+        """
+        Modify an existing column family on a table. Synchronous operation.
+
+
+        Parameters:
+         - tableName: the tablename to modify column family
+         - column: column family descriptor of column family to be modified
+
+        """
+        pass
+
+    def modifyTable(self, desc):
+        """
+        Modify an existing table
+
+
+        Parameters:
+         - desc: the descriptor of the table to modify
+
+        """
+        pass
+
+    def createNamespace(self, namespaceDesc):
+        """
+        Create a new namespace. Blocks until namespace has been successfully created or an exception is
+        thrown
+
+
+        Parameters:
+         - namespaceDesc: descriptor which describes the new namespace
+
+        """
+        pass
+
+    def modifyNamespace(self, namespaceDesc):
+        """
+        Modify an existing namespace.  Blocks until namespace has been successfully modified or an
+        exception is thrown
+
+
+        Parameters:
+         - namespaceDesc: descriptor which describes the new namespace
+
+        """
+        pass
+
+    def deleteNamespace(self, name):
+        """
+        Delete an existing namespace. Only empty namespaces (no tables) can be removed.
+        Blocks until namespace has been successfully deleted or an
+        exception is thrown.
+
+
+        Parameters:
+         - name: namespace name
+
+        """
+        pass
+
+    def getNamespaceDescriptor(self, name):
+        """
+        Get a namespace descriptor by name.
+        @retrun the descriptor
+
+
+        Parameters:
+         - name: name of namespace descriptor
+
+        """
+        pass
+
+    def listNamespaceDescriptors(self):
+        """
+        @return all namespaces
+
+
+        """
+        pass
+
+    def listNamespaces(self):
+        """
+        @return all namespace names
+
+
+        """
+        pass
+
+    def getThriftServerType(self):
+        """
+        Get the type of this thrift server.
+
+        @return the type of this thrift server
+
+        """
+        pass
+
+    def getSlowLogResponses(self, serverNames, logQueryFilter):
+        """
+        Retrieves online slow RPC logs from the provided list of
+        RegionServers
+
+        @return online slowlog response list
+        @throws TIOError if a remote or network exception occurs
+
+        Parameters:
+         - serverNames: @param serverNames Server names to get slowlog responses from
+         - logQueryFilter: @param logQueryFilter filter to be used if provided
+
+        """
+        pass
+
+    def clearSlowLogResponses(self, serverNames):
+        """
+        Clears online slow/large RPC logs from the provided list of
+        RegionServers
+
+        @return List of booleans representing if online slowlog response buffer is cleaned
+          from each RegionServer
+        @throws TIOError if a remote or network exception occurs
+
+        Parameters:
+         - serverNames: @param serverNames Set of Server names to clean slowlog responses from
+
+        """
+        pass
+
 
 class Client(Iface):
     def __init__(self, iprot, oprot=None):
@@ -448,7 +800,6 @@ class Client(Iface):
          - tgets: a list of TGets to fetch, the Result list
         will have the Results at corresponding positions
         or null if there was an error
-        :rtype: object
 
         """
         self.send_getMultiple(table, tgets)
@@ -1139,6 +1490,1092 @@ class Client(Iface):
             raise result.io
         raise TApplicationException(TApplicationException.MISSING_RESULT, "checkAndMutate failed: unknown result")
 
+    def getTableDescriptor(self, table):
+        """
+        Get a table descriptor.
+        @return the TableDescriptor of the giving tablename
+
+
+        Parameters:
+         - table: the tablename of the table to get tableDescriptor
+
+        """
+        self.send_getTableDescriptor(table)
+        return self.recv_getTableDescriptor()
+
+    def send_getTableDescriptor(self, table):
+        self._oprot.writeMessageBegin('getTableDescriptor', TMessageType.CALL, self._seqid)
+        args = getTableDescriptor_args()
+        args.table = table
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getTableDescriptor(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getTableDescriptor_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getTableDescriptor failed: unknown result")
+
+    def getTableDescriptors(self, tables):
+        """
+        Get table descriptors of tables.
+        @return the TableDescriptor of the giving tablename
+
+
+        Parameters:
+         - tables: the tablename list of the tables to get tableDescriptor
+
+        """
+        self.send_getTableDescriptors(tables)
+        return self.recv_getTableDescriptors()
+
+    def send_getTableDescriptors(self, tables):
+        self._oprot.writeMessageBegin('getTableDescriptors', TMessageType.CALL, self._seqid)
+        args = getTableDescriptors_args()
+        args.tables = tables
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getTableDescriptors(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getTableDescriptors_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getTableDescriptors failed: unknown result")
+
+    def tableExists(self, tableName):
+        """
+
+        @return true if table exists already, false if not
+
+
+        Parameters:
+         - tableName: the tablename of the tables to check
+
+        """
+        self.send_tableExists(tableName)
+        return self.recv_tableExists()
+
+    def send_tableExists(self, tableName):
+        self._oprot.writeMessageBegin('tableExists', TMessageType.CALL, self._seqid)
+        args = tableExists_args()
+        args.tableName = tableName
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_tableExists(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = tableExists_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "tableExists failed: unknown result")
+
+    def getTableDescriptorsByPattern(self, regex, includeSysTables):
+        """
+        Get table descriptors of tables that match the given pattern
+        @return the tableDescriptors of the matching table
+
+
+        Parameters:
+         - regex: The regular expression to match against
+         - includeSysTables: set to false if match only against userspace tables
+
+        """
+        self.send_getTableDescriptorsByPattern(regex, includeSysTables)
+        return self.recv_getTableDescriptorsByPattern()
+
+    def send_getTableDescriptorsByPattern(self, regex, includeSysTables):
+        self._oprot.writeMessageBegin('getTableDescriptorsByPattern', TMessageType.CALL, self._seqid)
+        args = getTableDescriptorsByPattern_args()
+        args.regex = regex
+        args.includeSysTables = includeSysTables
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getTableDescriptorsByPattern(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getTableDescriptorsByPattern_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getTableDescriptorsByPattern failed: unknown result")
+
+    def getTableDescriptorsByNamespace(self, name):
+        """
+        Get table descriptors of tables in the given namespace
+        @return the tableDescriptors in the namespce
+
+
+        Parameters:
+         - name: The namesapce's name
+
+        """
+        self.send_getTableDescriptorsByNamespace(name)
+        return self.recv_getTableDescriptorsByNamespace()
+
+    def send_getTableDescriptorsByNamespace(self, name):
+        self._oprot.writeMessageBegin('getTableDescriptorsByNamespace', TMessageType.CALL, self._seqid)
+        args = getTableDescriptorsByNamespace_args()
+        args.name = name
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getTableDescriptorsByNamespace(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getTableDescriptorsByNamespace_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getTableDescriptorsByNamespace failed: unknown result")
+
+    def getTableNamesByPattern(self, regex, includeSysTables):
+        """
+        Get table names of tables that match the given pattern
+        @return the table names of the matching table
+
+
+        Parameters:
+         - regex: The regular expression to match against
+         - includeSysTables: set to false if match only against userspace tables
+
+        """
+        self.send_getTableNamesByPattern(regex, includeSysTables)
+        return self.recv_getTableNamesByPattern()
+
+    def send_getTableNamesByPattern(self, regex, includeSysTables):
+        self._oprot.writeMessageBegin('getTableNamesByPattern', TMessageType.CALL, self._seqid)
+        args = getTableNamesByPattern_args()
+        args.regex = regex
+        args.includeSysTables = includeSysTables
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getTableNamesByPattern(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getTableNamesByPattern_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getTableNamesByPattern failed: unknown result")
+
+    def getTableNamesByNamespace(self, name):
+        """
+        Get table names of tables in the given namespace
+        @return the table names of the matching table
+
+
+        Parameters:
+         - name: The namesapce's name
+
+        """
+        self.send_getTableNamesByNamespace(name)
+        return self.recv_getTableNamesByNamespace()
+
+    def send_getTableNamesByNamespace(self, name):
+        self._oprot.writeMessageBegin('getTableNamesByNamespace', TMessageType.CALL, self._seqid)
+        args = getTableNamesByNamespace_args()
+        args.name = name
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getTableNamesByNamespace(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getTableNamesByNamespace_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getTableNamesByNamespace failed: unknown result")
+
+    def createTable(self, desc, splitKeys):
+        """
+        Creates a new table with an initial set of empty regions defined by the specified split keys.
+        The total number of regions created will be the number of split keys plus one. Synchronous
+        operation.
+
+
+        Parameters:
+         - desc: table descriptor for table
+         - splitKeys: rray of split keys for the initial regions of the table
+
+        """
+        self.send_createTable(desc, splitKeys)
+        self.recv_createTable()
+
+    def send_createTable(self, desc, splitKeys):
+        self._oprot.writeMessageBegin('createTable', TMessageType.CALL, self._seqid)
+        args = createTable_args()
+        args.desc = desc
+        args.splitKeys = splitKeys
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_createTable(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = createTable_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.io is not None:
+            raise result.io
+        return
+
+    def deleteTable(self, tableName):
+        """
+        Deletes a table. Synchronous operation.
+
+
+        Parameters:
+         - tableName: the tablename to delete
+
+        """
+        self.send_deleteTable(tableName)
+        self.recv_deleteTable()
+
+    def send_deleteTable(self, tableName):
+        self._oprot.writeMessageBegin('deleteTable', TMessageType.CALL, self._seqid)
+        args = deleteTable_args()
+        args.tableName = tableName
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_deleteTable(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = deleteTable_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.io is not None:
+            raise result.io
+        return
+
+    def truncateTable(self, tableName, preserveSplits):
+        """
+        Truncate a table. Synchronous operation.
+
+
+        Parameters:
+         - tableName: the tablename to truncate
+         - preserveSplits: whether to  preserve previous splits
+
+        """
+        self.send_truncateTable(tableName, preserveSplits)
+        self.recv_truncateTable()
+
+    def send_truncateTable(self, tableName, preserveSplits):
+        self._oprot.writeMessageBegin('truncateTable', TMessageType.CALL, self._seqid)
+        args = truncateTable_args()
+        args.tableName = tableName
+        args.preserveSplits = preserveSplits
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_truncateTable(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = truncateTable_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.io is not None:
+            raise result.io
+        return
+
+    def enableTable(self, tableName):
+        """
+        Enalbe a table
+
+
+        Parameters:
+         - tableName: the tablename to enable
+
+        """
+        self.send_enableTable(tableName)
+        self.recv_enableTable()
+
+    def send_enableTable(self, tableName):
+        self._oprot.writeMessageBegin('enableTable', TMessageType.CALL, self._seqid)
+        args = enableTable_args()
+        args.tableName = tableName
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_enableTable(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = enableTable_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.io is not None:
+            raise result.io
+        return
+
+    def disableTable(self, tableName):
+        """
+        Disable a table
+
+
+        Parameters:
+         - tableName: the tablename to disable
+
+        """
+        self.send_disableTable(tableName)
+        self.recv_disableTable()
+
+    def send_disableTable(self, tableName):
+        self._oprot.writeMessageBegin('disableTable', TMessageType.CALL, self._seqid)
+        args = disableTable_args()
+        args.tableName = tableName
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_disableTable(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = disableTable_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.io is not None:
+            raise result.io
+        return
+
+    def isTableEnabled(self, tableName):
+        """
+
+        @return true if table is enabled, false if not
+
+
+        Parameters:
+         - tableName: the tablename to check
+
+        """
+        self.send_isTableEnabled(tableName)
+        return self.recv_isTableEnabled()
+
+    def send_isTableEnabled(self, tableName):
+        self._oprot.writeMessageBegin('isTableEnabled', TMessageType.CALL, self._seqid)
+        args = isTableEnabled_args()
+        args.tableName = tableName
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_isTableEnabled(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = isTableEnabled_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "isTableEnabled failed: unknown result")
+
+    def isTableDisabled(self, tableName):
+        """
+
+        @return true if table is disabled, false if not
+
+
+        Parameters:
+         - tableName: the tablename to check
+
+        """
+        self.send_isTableDisabled(tableName)
+        return self.recv_isTableDisabled()
+
+    def send_isTableDisabled(self, tableName):
+        self._oprot.writeMessageBegin('isTableDisabled', TMessageType.CALL, self._seqid)
+        args = isTableDisabled_args()
+        args.tableName = tableName
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_isTableDisabled(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = isTableDisabled_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "isTableDisabled failed: unknown result")
+
+    def isTableAvailable(self, tableName):
+        """
+
+        @return true if table is available, false if not
+
+
+        Parameters:
+         - tableName: the tablename to check
+
+        """
+        self.send_isTableAvailable(tableName)
+        return self.recv_isTableAvailable()
+
+    def send_isTableAvailable(self, tableName):
+        self._oprot.writeMessageBegin('isTableAvailable', TMessageType.CALL, self._seqid)
+        args = isTableAvailable_args()
+        args.tableName = tableName
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_isTableAvailable(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = isTableAvailable_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "isTableAvailable failed: unknown result")
+
+    def isTableAvailableWithSplit(self, tableName, splitKeys):
+        """
+         * Use this api to check if the table has been created with the specified number of splitkeys
+         * which was used while creating the given table. Note : If this api is used after a table's
+         * region gets splitted, the api may return false.
+         *
+         * @return true if table is available, false if not
+         *
+         * @deprecated Since 2.2.0. Because the same method in Table interface has been deprecated
+         * since 2.0.0, we will remove it in 3.0.0 release.
+         * Use {@link #isTableAvailable(TTableName tableName)} instead
+        *
+
+        Parameters:
+         - tableName: the tablename to check
+         - splitKeys: keys to check if the table has been created with all split keys
+
+        """
+        self.send_isTableAvailableWithSplit(tableName, splitKeys)
+        return self.recv_isTableAvailableWithSplit()
+
+    def send_isTableAvailableWithSplit(self, tableName, splitKeys):
+        self._oprot.writeMessageBegin('isTableAvailableWithSplit', TMessageType.CALL, self._seqid)
+        args = isTableAvailableWithSplit_args()
+        args.tableName = tableName
+        args.splitKeys = splitKeys
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_isTableAvailableWithSplit(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = isTableAvailableWithSplit_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "isTableAvailableWithSplit failed: unknown result")
+
+    def addColumnFamily(self, tableName, column):
+        """
+        Add a column family to an existing table. Synchronous operation.
+
+
+        Parameters:
+         - tableName: the tablename to add column family to
+         - column: column family descriptor of column family to be added
+
+        """
+        self.send_addColumnFamily(tableName, column)
+        self.recv_addColumnFamily()
+
+    def send_addColumnFamily(self, tableName, column):
+        self._oprot.writeMessageBegin('addColumnFamily', TMessageType.CALL, self._seqid)
+        args = addColumnFamily_args()
+        args.tableName = tableName
+        args.column = column
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_addColumnFamily(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = addColumnFamily_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.io is not None:
+            raise result.io
+        return
+
+    def deleteColumnFamily(self, tableName, column):
+        """
+        Delete a column family from a table. Synchronous operation.
+
+
+        Parameters:
+         - tableName: the tablename to delete column family from
+         - column: name of column family to be deleted
+
+        """
+        self.send_deleteColumnFamily(tableName, column)
+        self.recv_deleteColumnFamily()
+
+    def send_deleteColumnFamily(self, tableName, column):
+        self._oprot.writeMessageBegin('deleteColumnFamily', TMessageType.CALL, self._seqid)
+        args = deleteColumnFamily_args()
+        args.tableName = tableName
+        args.column = column
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_deleteColumnFamily(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = deleteColumnFamily_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.io is not None:
+            raise result.io
+        return
+
+    def modifyColumnFamily(self, tableName, column):
+        """
+        Modify an existing column family on a table. Synchronous operation.
+
+
+        Parameters:
+         - tableName: the tablename to modify column family
+         - column: column family descriptor of column family to be modified
+
+        """
+        self.send_modifyColumnFamily(tableName, column)
+        self.recv_modifyColumnFamily()
+
+    def send_modifyColumnFamily(self, tableName, column):
+        self._oprot.writeMessageBegin('modifyColumnFamily', TMessageType.CALL, self._seqid)
+        args = modifyColumnFamily_args()
+        args.tableName = tableName
+        args.column = column
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_modifyColumnFamily(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = modifyColumnFamily_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.io is not None:
+            raise result.io
+        return
+
+    def modifyTable(self, desc):
+        """
+        Modify an existing table
+
+
+        Parameters:
+         - desc: the descriptor of the table to modify
+
+        """
+        self.send_modifyTable(desc)
+        self.recv_modifyTable()
+
+    def send_modifyTable(self, desc):
+        self._oprot.writeMessageBegin('modifyTable', TMessageType.CALL, self._seqid)
+        args = modifyTable_args()
+        args.desc = desc
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_modifyTable(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = modifyTable_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.io is not None:
+            raise result.io
+        return
+
+    def createNamespace(self, namespaceDesc):
+        """
+        Create a new namespace. Blocks until namespace has been successfully created or an exception is
+        thrown
+
+
+        Parameters:
+         - namespaceDesc: descriptor which describes the new namespace
+
+        """
+        self.send_createNamespace(namespaceDesc)
+        self.recv_createNamespace()
+
+    def send_createNamespace(self, namespaceDesc):
+        self._oprot.writeMessageBegin('createNamespace', TMessageType.CALL, self._seqid)
+        args = createNamespace_args()
+        args.namespaceDesc = namespaceDesc
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_createNamespace(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = createNamespace_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.io is not None:
+            raise result.io
+        return
+
+    def modifyNamespace(self, namespaceDesc):
+        """
+        Modify an existing namespace.  Blocks until namespace has been successfully modified or an
+        exception is thrown
+
+
+        Parameters:
+         - namespaceDesc: descriptor which describes the new namespace
+
+        """
+        self.send_modifyNamespace(namespaceDesc)
+        self.recv_modifyNamespace()
+
+    def send_modifyNamespace(self, namespaceDesc):
+        self._oprot.writeMessageBegin('modifyNamespace', TMessageType.CALL, self._seqid)
+        args = modifyNamespace_args()
+        args.namespaceDesc = namespaceDesc
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_modifyNamespace(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = modifyNamespace_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.io is not None:
+            raise result.io
+        return
+
+    def deleteNamespace(self, name):
+        """
+        Delete an existing namespace. Only empty namespaces (no tables) can be removed.
+        Blocks until namespace has been successfully deleted or an
+        exception is thrown.
+
+
+        Parameters:
+         - name: namespace name
+
+        """
+        self.send_deleteNamespace(name)
+        self.recv_deleteNamespace()
+
+    def send_deleteNamespace(self, name):
+        self._oprot.writeMessageBegin('deleteNamespace', TMessageType.CALL, self._seqid)
+        args = deleteNamespace_args()
+        args.name = name
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_deleteNamespace(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = deleteNamespace_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.io is not None:
+            raise result.io
+        return
+
+    def getNamespaceDescriptor(self, name):
+        """
+        Get a namespace descriptor by name.
+        @retrun the descriptor
+
+
+        Parameters:
+         - name: name of namespace descriptor
+
+        """
+        self.send_getNamespaceDescriptor(name)
+        return self.recv_getNamespaceDescriptor()
+
+    def send_getNamespaceDescriptor(self, name):
+        self._oprot.writeMessageBegin('getNamespaceDescriptor', TMessageType.CALL, self._seqid)
+        args = getNamespaceDescriptor_args()
+        args.name = name
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getNamespaceDescriptor(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getNamespaceDescriptor_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getNamespaceDescriptor failed: unknown result")
+
+    def listNamespaceDescriptors(self):
+        """
+        @return all namespaces
+
+
+        """
+        self.send_listNamespaceDescriptors()
+        return self.recv_listNamespaceDescriptors()
+
+    def send_listNamespaceDescriptors(self):
+        self._oprot.writeMessageBegin('listNamespaceDescriptors', TMessageType.CALL, self._seqid)
+        args = listNamespaceDescriptors_args()
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_listNamespaceDescriptors(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = listNamespaceDescriptors_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "listNamespaceDescriptors failed: unknown result")
+
+    def listNamespaces(self):
+        """
+        @return all namespace names
+
+
+        """
+        self.send_listNamespaces()
+        return self.recv_listNamespaces()
+
+    def send_listNamespaces(self):
+        self._oprot.writeMessageBegin('listNamespaces', TMessageType.CALL, self._seqid)
+        args = listNamespaces_args()
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_listNamespaces(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = listNamespaces_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "listNamespaces failed: unknown result")
+
+    def getThriftServerType(self):
+        """
+        Get the type of this thrift server.
+
+        @return the type of this thrift server
+
+        """
+        self.send_getThriftServerType()
+        return self.recv_getThriftServerType()
+
+    def send_getThriftServerType(self):
+        self._oprot.writeMessageBegin('getThriftServerType', TMessageType.CALL, self._seqid)
+        args = getThriftServerType_args()
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getThriftServerType(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getThriftServerType_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getThriftServerType failed: unknown result")
+
+    def getSlowLogResponses(self, serverNames, logQueryFilter):
+        """
+        Retrieves online slow RPC logs from the provided list of
+        RegionServers
+
+        @return online slowlog response list
+        @throws TIOError if a remote or network exception occurs
+
+        Parameters:
+         - serverNames: @param serverNames Server names to get slowlog responses from
+         - logQueryFilter: @param logQueryFilter filter to be used if provided
+
+        """
+        self.send_getSlowLogResponses(serverNames, logQueryFilter)
+        return self.recv_getSlowLogResponses()
+
+    def send_getSlowLogResponses(self, serverNames, logQueryFilter):
+        self._oprot.writeMessageBegin('getSlowLogResponses', TMessageType.CALL, self._seqid)
+        args = getSlowLogResponses_args()
+        args.serverNames = serverNames
+        args.logQueryFilter = logQueryFilter
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getSlowLogResponses(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getSlowLogResponses_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getSlowLogResponses failed: unknown result")
+
+    def clearSlowLogResponses(self, serverNames):
+        """
+        Clears online slow/large RPC logs from the provided list of
+        RegionServers
+
+        @return List of booleans representing if online slowlog response buffer is cleaned
+          from each RegionServer
+        @throws TIOError if a remote or network exception occurs
+
+        Parameters:
+         - serverNames: @param serverNames Set of Server names to clean slowlog responses from
+
+        """
+        self.send_clearSlowLogResponses(serverNames)
+        return self.recv_clearSlowLogResponses()
+
+    def send_clearSlowLogResponses(self, serverNames):
+        self._oprot.writeMessageBegin('clearSlowLogResponses', TMessageType.CALL, self._seqid)
+        args = clearSlowLogResponses_args()
+        args.serverNames = serverNames
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_clearSlowLogResponses(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = clearSlowLogResponses_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "clearSlowLogResponses failed: unknown result")
+
 
 class Processor(Iface, TProcessor):
     def __init__(self, handler):
@@ -1164,6 +2601,35 @@ class Processor(Iface, TProcessor):
         self._processMap["getRegionLocation"] = Processor.process_getRegionLocation
         self._processMap["getAllRegionLocations"] = Processor.process_getAllRegionLocations
         self._processMap["checkAndMutate"] = Processor.process_checkAndMutate
+        self._processMap["getTableDescriptor"] = Processor.process_getTableDescriptor
+        self._processMap["getTableDescriptors"] = Processor.process_getTableDescriptors
+        self._processMap["tableExists"] = Processor.process_tableExists
+        self._processMap["getTableDescriptorsByPattern"] = Processor.process_getTableDescriptorsByPattern
+        self._processMap["getTableDescriptorsByNamespace"] = Processor.process_getTableDescriptorsByNamespace
+        self._processMap["getTableNamesByPattern"] = Processor.process_getTableNamesByPattern
+        self._processMap["getTableNamesByNamespace"] = Processor.process_getTableNamesByNamespace
+        self._processMap["createTable"] = Processor.process_createTable
+        self._processMap["deleteTable"] = Processor.process_deleteTable
+        self._processMap["truncateTable"] = Processor.process_truncateTable
+        self._processMap["enableTable"] = Processor.process_enableTable
+        self._processMap["disableTable"] = Processor.process_disableTable
+        self._processMap["isTableEnabled"] = Processor.process_isTableEnabled
+        self._processMap["isTableDisabled"] = Processor.process_isTableDisabled
+        self._processMap["isTableAvailable"] = Processor.process_isTableAvailable
+        self._processMap["isTableAvailableWithSplit"] = Processor.process_isTableAvailableWithSplit
+        self._processMap["addColumnFamily"] = Processor.process_addColumnFamily
+        self._processMap["deleteColumnFamily"] = Processor.process_deleteColumnFamily
+        self._processMap["modifyColumnFamily"] = Processor.process_modifyColumnFamily
+        self._processMap["modifyTable"] = Processor.process_modifyTable
+        self._processMap["createNamespace"] = Processor.process_createNamespace
+        self._processMap["modifyNamespace"] = Processor.process_modifyNamespace
+        self._processMap["deleteNamespace"] = Processor.process_deleteNamespace
+        self._processMap["getNamespaceDescriptor"] = Processor.process_getNamespaceDescriptor
+        self._processMap["listNamespaceDescriptors"] = Processor.process_listNamespaceDescriptors
+        self._processMap["listNamespaces"] = Processor.process_listNamespaces
+        self._processMap["getThriftServerType"] = Processor.process_getThriftServerType
+        self._processMap["getSlowLogResponses"] = Processor.process_getSlowLogResponses
+        self._processMap["clearSlowLogResponses"] = Processor.process_clearSlowLogResponses
         self._on_message_begin = None
 
     def on_message_begin(self, func):
@@ -1712,6 +3178,757 @@ class Processor(Iface, TProcessor):
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
+    def process_getTableDescriptor(self, seqid, iprot, oprot):
+        args = getTableDescriptor_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getTableDescriptor_result()
+        try:
+            result.success = self._handler.getTableDescriptor(args.table)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getTableDescriptor", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getTableDescriptors(self, seqid, iprot, oprot):
+        args = getTableDescriptors_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getTableDescriptors_result()
+        try:
+            result.success = self._handler.getTableDescriptors(args.tables)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getTableDescriptors", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_tableExists(self, seqid, iprot, oprot):
+        args = tableExists_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = tableExists_result()
+        try:
+            result.success = self._handler.tableExists(args.tableName)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("tableExists", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getTableDescriptorsByPattern(self, seqid, iprot, oprot):
+        args = getTableDescriptorsByPattern_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getTableDescriptorsByPattern_result()
+        try:
+            result.success = self._handler.getTableDescriptorsByPattern(args.regex, args.includeSysTables)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getTableDescriptorsByPattern", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getTableDescriptorsByNamespace(self, seqid, iprot, oprot):
+        args = getTableDescriptorsByNamespace_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getTableDescriptorsByNamespace_result()
+        try:
+            result.success = self._handler.getTableDescriptorsByNamespace(args.name)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getTableDescriptorsByNamespace", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getTableNamesByPattern(self, seqid, iprot, oprot):
+        args = getTableNamesByPattern_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getTableNamesByPattern_result()
+        try:
+            result.success = self._handler.getTableNamesByPattern(args.regex, args.includeSysTables)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getTableNamesByPattern", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getTableNamesByNamespace(self, seqid, iprot, oprot):
+        args = getTableNamesByNamespace_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getTableNamesByNamespace_result()
+        try:
+            result.success = self._handler.getTableNamesByNamespace(args.name)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getTableNamesByNamespace", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_createTable(self, seqid, iprot, oprot):
+        args = createTable_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = createTable_result()
+        try:
+            self._handler.createTable(args.desc, args.splitKeys)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("createTable", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_deleteTable(self, seqid, iprot, oprot):
+        args = deleteTable_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = deleteTable_result()
+        try:
+            self._handler.deleteTable(args.tableName)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("deleteTable", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_truncateTable(self, seqid, iprot, oprot):
+        args = truncateTable_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = truncateTable_result()
+        try:
+            self._handler.truncateTable(args.tableName, args.preserveSplits)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("truncateTable", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_enableTable(self, seqid, iprot, oprot):
+        args = enableTable_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = enableTable_result()
+        try:
+            self._handler.enableTable(args.tableName)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("enableTable", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_disableTable(self, seqid, iprot, oprot):
+        args = disableTable_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = disableTable_result()
+        try:
+            self._handler.disableTable(args.tableName)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("disableTable", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_isTableEnabled(self, seqid, iprot, oprot):
+        args = isTableEnabled_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = isTableEnabled_result()
+        try:
+            result.success = self._handler.isTableEnabled(args.tableName)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("isTableEnabled", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_isTableDisabled(self, seqid, iprot, oprot):
+        args = isTableDisabled_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = isTableDisabled_result()
+        try:
+            result.success = self._handler.isTableDisabled(args.tableName)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("isTableDisabled", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_isTableAvailable(self, seqid, iprot, oprot):
+        args = isTableAvailable_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = isTableAvailable_result()
+        try:
+            result.success = self._handler.isTableAvailable(args.tableName)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("isTableAvailable", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_isTableAvailableWithSplit(self, seqid, iprot, oprot):
+        args = isTableAvailableWithSplit_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = isTableAvailableWithSplit_result()
+        try:
+            result.success = self._handler.isTableAvailableWithSplit(args.tableName, args.splitKeys)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("isTableAvailableWithSplit", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_addColumnFamily(self, seqid, iprot, oprot):
+        args = addColumnFamily_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = addColumnFamily_result()
+        try:
+            self._handler.addColumnFamily(args.tableName, args.column)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("addColumnFamily", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_deleteColumnFamily(self, seqid, iprot, oprot):
+        args = deleteColumnFamily_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = deleteColumnFamily_result()
+        try:
+            self._handler.deleteColumnFamily(args.tableName, args.column)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("deleteColumnFamily", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_modifyColumnFamily(self, seqid, iprot, oprot):
+        args = modifyColumnFamily_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = modifyColumnFamily_result()
+        try:
+            self._handler.modifyColumnFamily(args.tableName, args.column)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("modifyColumnFamily", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_modifyTable(self, seqid, iprot, oprot):
+        args = modifyTable_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = modifyTable_result()
+        try:
+            self._handler.modifyTable(args.desc)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("modifyTable", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_createNamespace(self, seqid, iprot, oprot):
+        args = createNamespace_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = createNamespace_result()
+        try:
+            self._handler.createNamespace(args.namespaceDesc)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("createNamespace", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_modifyNamespace(self, seqid, iprot, oprot):
+        args = modifyNamespace_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = modifyNamespace_result()
+        try:
+            self._handler.modifyNamespace(args.namespaceDesc)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("modifyNamespace", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_deleteNamespace(self, seqid, iprot, oprot):
+        args = deleteNamespace_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = deleteNamespace_result()
+        try:
+            self._handler.deleteNamespace(args.name)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("deleteNamespace", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getNamespaceDescriptor(self, seqid, iprot, oprot):
+        args = getNamespaceDescriptor_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getNamespaceDescriptor_result()
+        try:
+            result.success = self._handler.getNamespaceDescriptor(args.name)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getNamespaceDescriptor", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_listNamespaceDescriptors(self, seqid, iprot, oprot):
+        args = listNamespaceDescriptors_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = listNamespaceDescriptors_result()
+        try:
+            result.success = self._handler.listNamespaceDescriptors()
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("listNamespaceDescriptors", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_listNamespaces(self, seqid, iprot, oprot):
+        args = listNamespaces_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = listNamespaces_result()
+        try:
+            result.success = self._handler.listNamespaces()
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("listNamespaces", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getThriftServerType(self, seqid, iprot, oprot):
+        args = getThriftServerType_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getThriftServerType_result()
+        try:
+            result.success = self._handler.getThriftServerType()
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getThriftServerType", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getSlowLogResponses(self, seqid, iprot, oprot):
+        args = getSlowLogResponses_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getSlowLogResponses_result()
+        try:
+            result.success = self._handler.getSlowLogResponses(args.serverNames, args.logQueryFilter)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getSlowLogResponses", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_clearSlowLogResponses(self, seqid, iprot, oprot):
+        args = clearSlowLogResponses_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = clearSlowLogResponses_result()
+        try:
+            result.success = self._handler.clearSlowLogResponses(args.serverNames)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("clearSlowLogResponses", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
 # HELPER FUNCTIONS AND STRUCTURES
 
 
@@ -1898,11 +4115,11 @@ class existsAll_args(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.tgets = []
-                    (_etype129, _size126) = iprot.readListBegin()
-                    for _i130 in range(_size126):
-                        _elem131 = TGet()
-                        _elem131.read(iprot)
-                        self.tgets.append(_elem131)
+                    (_etype172, _size169) = iprot.readListBegin()
+                    for _i173 in range(_size169):
+                        _elem174 = TGet()
+                        _elem174.read(iprot)
+                        self.tgets.append(_elem174)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -1923,8 +4140,8 @@ class existsAll_args(object):
         if self.tgets is not None:
             oprot.writeFieldBegin('tgets', TType.LIST, 2)
             oprot.writeListBegin(TType.STRUCT, len(self.tgets))
-            for iter132 in self.tgets:
-                iter132.write(oprot)
+            for iter175 in self.tgets:
+                iter175.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -1980,10 +4197,10 @@ class existsAll_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype136, _size133) = iprot.readListBegin()
-                    for _i137 in range(_size133):
-                        _elem138 = iprot.readBool()
-                        self.success.append(_elem138)
+                    (_etype179, _size176) = iprot.readListBegin()
+                    for _i180 in range(_size176):
+                        _elem181 = iprot.readBool()
+                        self.success.append(_elem181)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -2006,8 +4223,8 @@ class existsAll_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.BOOL, len(self.success))
-            for iter139 in self.success:
-                oprot.writeBool(iter139)
+            for iter182 in self.success:
+                oprot.writeBool(iter182)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.io is not None:
@@ -2223,11 +4440,11 @@ class getMultiple_args(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.tgets = []
-                    (_etype143, _size140) = iprot.readListBegin()
-                    for _i144 in range(_size140):
-                        _elem145 = TGet()
-                        _elem145.read(iprot)
-                        self.tgets.append(_elem145)
+                    (_etype186, _size183) = iprot.readListBegin()
+                    for _i187 in range(_size183):
+                        _elem188 = TGet()
+                        _elem188.read(iprot)
+                        self.tgets.append(_elem188)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -2248,8 +4465,8 @@ class getMultiple_args(object):
         if self.tgets is not None:
             oprot.writeFieldBegin('tgets', TType.LIST, 2)
             oprot.writeListBegin(TType.STRUCT, len(self.tgets))
-            for iter146 in self.tgets:
-                iter146.write(oprot)
+            for iter189 in self.tgets:
+                iter189.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -2305,11 +4522,11 @@ class getMultiple_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype150, _size147) = iprot.readListBegin()
-                    for _i151 in range(_size147):
-                        _elem152 = TResult()
-                        _elem152.read(iprot)
-                        self.success.append(_elem152)
+                    (_etype193, _size190) = iprot.readListBegin()
+                    for _i194 in range(_size190):
+                        _elem195 = TResult()
+                        _elem195.read(iprot)
+                        self.success.append(_elem195)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -2332,8 +4549,8 @@ class getMultiple_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter153 in self.success:
-                iter153.write(oprot)
+            for iter196 in self.success:
+                iter196.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.io is not None:
@@ -2744,11 +4961,11 @@ class putMultiple_args(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.tputs = []
-                    (_etype157, _size154) = iprot.readListBegin()
-                    for _i158 in range(_size154):
-                        _elem159 = TPut()
-                        _elem159.read(iprot)
-                        self.tputs.append(_elem159)
+                    (_etype200, _size197) = iprot.readListBegin()
+                    for _i201 in range(_size197):
+                        _elem202 = TPut()
+                        _elem202.read(iprot)
+                        self.tputs.append(_elem202)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -2769,8 +4986,8 @@ class putMultiple_args(object):
         if self.tputs is not None:
             oprot.writeFieldBegin('tputs', TType.LIST, 2)
             oprot.writeListBegin(TType.STRUCT, len(self.tputs))
-            for iter160 in self.tputs:
-                iter160.write(oprot)
+            for iter203 in self.tputs:
+                iter203.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -3036,11 +5253,11 @@ class deleteMultiple_args(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.tdeletes = []
-                    (_etype164, _size161) = iprot.readListBegin()
-                    for _i165 in range(_size161):
-                        _elem166 = TDelete()
-                        _elem166.read(iprot)
-                        self.tdeletes.append(_elem166)
+                    (_etype207, _size204) = iprot.readListBegin()
+                    for _i208 in range(_size204):
+                        _elem209 = TDelete()
+                        _elem209.read(iprot)
+                        self.tdeletes.append(_elem209)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -3061,8 +5278,8 @@ class deleteMultiple_args(object):
         if self.tdeletes is not None:
             oprot.writeFieldBegin('tdeletes', TType.LIST, 2)
             oprot.writeListBegin(TType.STRUCT, len(self.tdeletes))
-            for iter167 in self.tdeletes:
-                iter167.write(oprot)
+            for iter210 in self.tdeletes:
+                iter210.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -3118,11 +5335,11 @@ class deleteMultiple_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype171, _size168) = iprot.readListBegin()
-                    for _i172 in range(_size168):
-                        _elem173 = TDelete()
-                        _elem173.read(iprot)
-                        self.success.append(_elem173)
+                    (_etype214, _size211) = iprot.readListBegin()
+                    for _i215 in range(_size211):
+                        _elem216 = TDelete()
+                        _elem216.read(iprot)
+                        self.success.append(_elem216)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -3145,8 +5362,8 @@ class deleteMultiple_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter174 in self.success:
-                iter174.write(oprot)
+            for iter217 in self.success:
+                iter217.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.io is not None:
@@ -3949,11 +6166,11 @@ class getScannerRows_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype178, _size175) = iprot.readListBegin()
-                    for _i179 in range(_size175):
-                        _elem180 = TResult()
-                        _elem180.read(iprot)
-                        self.success.append(_elem180)
+                    (_etype221, _size218) = iprot.readListBegin()
+                    for _i222 in range(_size218):
+                        _elem223 = TResult()
+                        _elem223.read(iprot)
+                        self.success.append(_elem223)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -3982,8 +6199,8 @@ class getScannerRows_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter181 in self.success:
-                iter181.write(oprot)
+            for iter224 in self.success:
+                iter224.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.io is not None:
@@ -4416,11 +6633,11 @@ class getScannerResults_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype185, _size182) = iprot.readListBegin()
-                    for _i186 in range(_size182):
-                        _elem187 = TResult()
-                        _elem187.read(iprot)
-                        self.success.append(_elem187)
+                    (_etype228, _size225) = iprot.readListBegin()
+                    for _i229 in range(_size225):
+                        _elem230 = TResult()
+                        _elem230.read(iprot)
+                        self.success.append(_elem230)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -4443,8 +6660,8 @@ class getScannerResults_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter188 in self.success:
-                iter188.write(oprot)
+            for iter231 in self.success:
+                iter231.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.io is not None:
@@ -4728,11 +6945,11 @@ class getAllRegionLocations_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype192, _size189) = iprot.readListBegin()
-                    for _i193 in range(_size189):
-                        _elem194 = THRegionLocation()
-                        _elem194.read(iprot)
-                        self.success.append(_elem194)
+                    (_etype235, _size232) = iprot.readListBegin()
+                    for _i236 in range(_size232):
+                        _elem237 = THRegionLocation()
+                        _elem237.read(iprot)
+                        self.success.append(_elem237)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -4755,8 +6972,8 @@ class getAllRegionLocations_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter195 in self.success:
-                iter195.write(oprot)
+            for iter238 in self.success:
+                iter238.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.io is not None:
@@ -5004,6 +7221,4054 @@ class checkAndMutate_result(object):
 all_structs.append(checkAndMutate_result)
 checkAndMutate_result.thrift_spec = (
     (0, TType.BOOL, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class getTableDescriptor_args(object):
+    """
+    Attributes:
+     - table: the tablename of the table to get tableDescriptor
+
+    """
+
+
+    def __init__(self, table=None,):
+        self.table = table
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.table = TTableName()
+                    self.table.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getTableDescriptor_args')
+        if self.table is not None:
+            oprot.writeFieldBegin('table', TType.STRUCT, 1)
+            self.table.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.table is None:
+            raise TProtocolException(message='Required field table is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getTableDescriptor_args)
+getTableDescriptor_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'table', [TTableName, None], None, ),  # 1
+)
+
+
+class getTableDescriptor_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = TTableDescriptor()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getTableDescriptor_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getTableDescriptor_result)
+getTableDescriptor_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [TTableDescriptor, None], None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class getTableDescriptors_args(object):
+    """
+    Attributes:
+     - tables: the tablename list of the tables to get tableDescriptor
+
+    """
+
+
+    def __init__(self, tables=None,):
+        self.tables = tables
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.LIST:
+                    self.tables = []
+                    (_etype242, _size239) = iprot.readListBegin()
+                    for _i243 in range(_size239):
+                        _elem244 = TTableName()
+                        _elem244.read(iprot)
+                        self.tables.append(_elem244)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getTableDescriptors_args')
+        if self.tables is not None:
+            oprot.writeFieldBegin('tables', TType.LIST, 1)
+            oprot.writeListBegin(TType.STRUCT, len(self.tables))
+            for iter245 in self.tables:
+                iter245.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.tables is None:
+            raise TProtocolException(message='Required field tables is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getTableDescriptors_args)
+getTableDescriptors_args.thrift_spec = (
+    None,  # 0
+    (1, TType.LIST, 'tables', (TType.STRUCT, [TTableName, None], False), None, ),  # 1
+)
+
+
+class getTableDescriptors_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype249, _size246) = iprot.readListBegin()
+                    for _i250 in range(_size246):
+                        _elem251 = TTableDescriptor()
+                        _elem251.read(iprot)
+                        self.success.append(_elem251)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getTableDescriptors_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter252 in self.success:
+                iter252.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getTableDescriptors_result)
+getTableDescriptors_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [TTableDescriptor, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class tableExists_args(object):
+    """
+    Attributes:
+     - tableName: the tablename of the tables to check
+
+    """
+
+
+    def __init__(self, tableName=None,):
+        self.tableName = tableName
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.tableName = TTableName()
+                    self.tableName.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('tableExists_args')
+        if self.tableName is not None:
+            oprot.writeFieldBegin('tableName', TType.STRUCT, 1)
+            self.tableName.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(tableExists_args)
+tableExists_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'tableName', [TTableName, None], None, ),  # 1
+)
+
+
+class tableExists_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('tableExists_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(tableExists_result)
+tableExists_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class getTableDescriptorsByPattern_args(object):
+    """
+    Attributes:
+     - regex: The regular expression to match against
+     - includeSysTables: set to false if match only against userspace tables
+
+    """
+
+
+    def __init__(self, regex=None, includeSysTables=None,):
+        self.regex = regex
+        self.includeSysTables = includeSysTables
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.regex = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.BOOL:
+                    self.includeSysTables = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getTableDescriptorsByPattern_args')
+        if self.regex is not None:
+            oprot.writeFieldBegin('regex', TType.STRING, 1)
+            oprot.writeString(self.regex.encode('utf-8') if sys.version_info[0] == 2 else self.regex)
+            oprot.writeFieldEnd()
+        if self.includeSysTables is not None:
+            oprot.writeFieldBegin('includeSysTables', TType.BOOL, 2)
+            oprot.writeBool(self.includeSysTables)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.includeSysTables is None:
+            raise TProtocolException(message='Required field includeSysTables is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getTableDescriptorsByPattern_args)
+getTableDescriptorsByPattern_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'regex', 'UTF8', None, ),  # 1
+    (2, TType.BOOL, 'includeSysTables', None, None, ),  # 2
+)
+
+
+class getTableDescriptorsByPattern_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype256, _size253) = iprot.readListBegin()
+                    for _i257 in range(_size253):
+                        _elem258 = TTableDescriptor()
+                        _elem258.read(iprot)
+                        self.success.append(_elem258)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getTableDescriptorsByPattern_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter259 in self.success:
+                iter259.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getTableDescriptorsByPattern_result)
+getTableDescriptorsByPattern_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [TTableDescriptor, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class getTableDescriptorsByNamespace_args(object):
+    """
+    Attributes:
+     - name: The namesapce's name
+
+    """
+
+
+    def __init__(self, name=None,):
+        self.name = name
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.name = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getTableDescriptorsByNamespace_args')
+        if self.name is not None:
+            oprot.writeFieldBegin('name', TType.STRING, 1)
+            oprot.writeString(self.name.encode('utf-8') if sys.version_info[0] == 2 else self.name)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.name is None:
+            raise TProtocolException(message='Required field name is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getTableDescriptorsByNamespace_args)
+getTableDescriptorsByNamespace_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'name', 'UTF8', None, ),  # 1
+)
+
+
+class getTableDescriptorsByNamespace_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype263, _size260) = iprot.readListBegin()
+                    for _i264 in range(_size260):
+                        _elem265 = TTableDescriptor()
+                        _elem265.read(iprot)
+                        self.success.append(_elem265)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getTableDescriptorsByNamespace_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter266 in self.success:
+                iter266.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getTableDescriptorsByNamespace_result)
+getTableDescriptorsByNamespace_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [TTableDescriptor, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class getTableNamesByPattern_args(object):
+    """
+    Attributes:
+     - regex: The regular expression to match against
+     - includeSysTables: set to false if match only against userspace tables
+
+    """
+
+
+    def __init__(self, regex=None, includeSysTables=None,):
+        self.regex = regex
+        self.includeSysTables = includeSysTables
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.regex = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.BOOL:
+                    self.includeSysTables = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getTableNamesByPattern_args')
+        if self.regex is not None:
+            oprot.writeFieldBegin('regex', TType.STRING, 1)
+            oprot.writeString(self.regex.encode('utf-8') if sys.version_info[0] == 2 else self.regex)
+            oprot.writeFieldEnd()
+        if self.includeSysTables is not None:
+            oprot.writeFieldBegin('includeSysTables', TType.BOOL, 2)
+            oprot.writeBool(self.includeSysTables)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.includeSysTables is None:
+            raise TProtocolException(message='Required field includeSysTables is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getTableNamesByPattern_args)
+getTableNamesByPattern_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'regex', 'UTF8', None, ),  # 1
+    (2, TType.BOOL, 'includeSysTables', None, None, ),  # 2
+)
+
+
+class getTableNamesByPattern_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype270, _size267) = iprot.readListBegin()
+                    for _i271 in range(_size267):
+                        _elem272 = TTableName()
+                        _elem272.read(iprot)
+                        self.success.append(_elem272)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getTableNamesByPattern_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter273 in self.success:
+                iter273.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getTableNamesByPattern_result)
+getTableNamesByPattern_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [TTableName, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class getTableNamesByNamespace_args(object):
+    """
+    Attributes:
+     - name: The namesapce's name
+
+    """
+
+
+    def __init__(self, name=None,):
+        self.name = name
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.name = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getTableNamesByNamespace_args')
+        if self.name is not None:
+            oprot.writeFieldBegin('name', TType.STRING, 1)
+            oprot.writeString(self.name.encode('utf-8') if sys.version_info[0] == 2 else self.name)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.name is None:
+            raise TProtocolException(message='Required field name is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getTableNamesByNamespace_args)
+getTableNamesByNamespace_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'name', 'UTF8', None, ),  # 1
+)
+
+
+class getTableNamesByNamespace_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype277, _size274) = iprot.readListBegin()
+                    for _i278 in range(_size274):
+                        _elem279 = TTableName()
+                        _elem279.read(iprot)
+                        self.success.append(_elem279)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getTableNamesByNamespace_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter280 in self.success:
+                iter280.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getTableNamesByNamespace_result)
+getTableNamesByNamespace_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [TTableName, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class createTable_args(object):
+    """
+    Attributes:
+     - desc: table descriptor for table
+     - splitKeys: rray of split keys for the initial regions of the table
+
+    """
+
+
+    def __init__(self, desc=None, splitKeys=None,):
+        self.desc = desc
+        self.splitKeys = splitKeys
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.desc = TTableDescriptor()
+                    self.desc.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.LIST:
+                    self.splitKeys = []
+                    (_etype284, _size281) = iprot.readListBegin()
+                    for _i285 in range(_size281):
+                        _elem286 = iprot.readBinary()
+                        self.splitKeys.append(_elem286)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('createTable_args')
+        if self.desc is not None:
+            oprot.writeFieldBegin('desc', TType.STRUCT, 1)
+            self.desc.write(oprot)
+            oprot.writeFieldEnd()
+        if self.splitKeys is not None:
+            oprot.writeFieldBegin('splitKeys', TType.LIST, 2)
+            oprot.writeListBegin(TType.STRING, len(self.splitKeys))
+            for iter287 in self.splitKeys:
+                oprot.writeBinary(iter287)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.desc is None:
+            raise TProtocolException(message='Required field desc is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(createTable_args)
+createTable_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'desc', [TTableDescriptor, None], None, ),  # 1
+    (2, TType.LIST, 'splitKeys', (TType.STRING, 'BINARY', False), None, ),  # 2
+)
+
+
+class createTable_result(object):
+    """
+    Attributes:
+     - io
+
+    """
+
+
+    def __init__(self, io=None,):
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('createTable_result')
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(createTable_result)
+createTable_result.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class deleteTable_args(object):
+    """
+    Attributes:
+     - tableName: the tablename to delete
+
+    """
+
+
+    def __init__(self, tableName=None,):
+        self.tableName = tableName
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.tableName = TTableName()
+                    self.tableName.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('deleteTable_args')
+        if self.tableName is not None:
+            oprot.writeFieldBegin('tableName', TType.STRUCT, 1)
+            self.tableName.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.tableName is None:
+            raise TProtocolException(message='Required field tableName is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(deleteTable_args)
+deleteTable_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'tableName', [TTableName, None], None, ),  # 1
+)
+
+
+class deleteTable_result(object):
+    """
+    Attributes:
+     - io
+
+    """
+
+
+    def __init__(self, io=None,):
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('deleteTable_result')
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(deleteTable_result)
+deleteTable_result.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class truncateTable_args(object):
+    """
+    Attributes:
+     - tableName: the tablename to truncate
+     - preserveSplits: whether to  preserve previous splits
+
+    """
+
+
+    def __init__(self, tableName=None, preserveSplits=None,):
+        self.tableName = tableName
+        self.preserveSplits = preserveSplits
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.tableName = TTableName()
+                    self.tableName.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.BOOL:
+                    self.preserveSplits = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('truncateTable_args')
+        if self.tableName is not None:
+            oprot.writeFieldBegin('tableName', TType.STRUCT, 1)
+            self.tableName.write(oprot)
+            oprot.writeFieldEnd()
+        if self.preserveSplits is not None:
+            oprot.writeFieldBegin('preserveSplits', TType.BOOL, 2)
+            oprot.writeBool(self.preserveSplits)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.tableName is None:
+            raise TProtocolException(message='Required field tableName is unset!')
+        if self.preserveSplits is None:
+            raise TProtocolException(message='Required field preserveSplits is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(truncateTable_args)
+truncateTable_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'tableName', [TTableName, None], None, ),  # 1
+    (2, TType.BOOL, 'preserveSplits', None, None, ),  # 2
+)
+
+
+class truncateTable_result(object):
+    """
+    Attributes:
+     - io
+
+    """
+
+
+    def __init__(self, io=None,):
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('truncateTable_result')
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(truncateTable_result)
+truncateTable_result.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class enableTable_args(object):
+    """
+    Attributes:
+     - tableName: the tablename to enable
+
+    """
+
+
+    def __init__(self, tableName=None,):
+        self.tableName = tableName
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.tableName = TTableName()
+                    self.tableName.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('enableTable_args')
+        if self.tableName is not None:
+            oprot.writeFieldBegin('tableName', TType.STRUCT, 1)
+            self.tableName.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.tableName is None:
+            raise TProtocolException(message='Required field tableName is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(enableTable_args)
+enableTable_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'tableName', [TTableName, None], None, ),  # 1
+)
+
+
+class enableTable_result(object):
+    """
+    Attributes:
+     - io
+
+    """
+
+
+    def __init__(self, io=None,):
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('enableTable_result')
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(enableTable_result)
+enableTable_result.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class disableTable_args(object):
+    """
+    Attributes:
+     - tableName: the tablename to disable
+
+    """
+
+
+    def __init__(self, tableName=None,):
+        self.tableName = tableName
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.tableName = TTableName()
+                    self.tableName.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('disableTable_args')
+        if self.tableName is not None:
+            oprot.writeFieldBegin('tableName', TType.STRUCT, 1)
+            self.tableName.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.tableName is None:
+            raise TProtocolException(message='Required field tableName is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(disableTable_args)
+disableTable_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'tableName', [TTableName, None], None, ),  # 1
+)
+
+
+class disableTable_result(object):
+    """
+    Attributes:
+     - io
+
+    """
+
+
+    def __init__(self, io=None,):
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('disableTable_result')
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(disableTable_result)
+disableTable_result.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class isTableEnabled_args(object):
+    """
+    Attributes:
+     - tableName: the tablename to check
+
+    """
+
+
+    def __init__(self, tableName=None,):
+        self.tableName = tableName
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.tableName = TTableName()
+                    self.tableName.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('isTableEnabled_args')
+        if self.tableName is not None:
+            oprot.writeFieldBegin('tableName', TType.STRUCT, 1)
+            self.tableName.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.tableName is None:
+            raise TProtocolException(message='Required field tableName is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(isTableEnabled_args)
+isTableEnabled_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'tableName', [TTableName, None], None, ),  # 1
+)
+
+
+class isTableEnabled_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('isTableEnabled_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(isTableEnabled_result)
+isTableEnabled_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class isTableDisabled_args(object):
+    """
+    Attributes:
+     - tableName: the tablename to check
+
+    """
+
+
+    def __init__(self, tableName=None,):
+        self.tableName = tableName
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.tableName = TTableName()
+                    self.tableName.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('isTableDisabled_args')
+        if self.tableName is not None:
+            oprot.writeFieldBegin('tableName', TType.STRUCT, 1)
+            self.tableName.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.tableName is None:
+            raise TProtocolException(message='Required field tableName is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(isTableDisabled_args)
+isTableDisabled_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'tableName', [TTableName, None], None, ),  # 1
+)
+
+
+class isTableDisabled_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('isTableDisabled_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(isTableDisabled_result)
+isTableDisabled_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class isTableAvailable_args(object):
+    """
+    Attributes:
+     - tableName: the tablename to check
+
+    """
+
+
+    def __init__(self, tableName=None,):
+        self.tableName = tableName
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.tableName = TTableName()
+                    self.tableName.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('isTableAvailable_args')
+        if self.tableName is not None:
+            oprot.writeFieldBegin('tableName', TType.STRUCT, 1)
+            self.tableName.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.tableName is None:
+            raise TProtocolException(message='Required field tableName is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(isTableAvailable_args)
+isTableAvailable_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'tableName', [TTableName, None], None, ),  # 1
+)
+
+
+class isTableAvailable_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('isTableAvailable_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(isTableAvailable_result)
+isTableAvailable_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class isTableAvailableWithSplit_args(object):
+    """
+    Attributes:
+     - tableName: the tablename to check
+     - splitKeys: keys to check if the table has been created with all split keys
+
+    """
+
+
+    def __init__(self, tableName=None, splitKeys=None,):
+        self.tableName = tableName
+        self.splitKeys = splitKeys
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.tableName = TTableName()
+                    self.tableName.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.LIST:
+                    self.splitKeys = []
+                    (_etype291, _size288) = iprot.readListBegin()
+                    for _i292 in range(_size288):
+                        _elem293 = iprot.readBinary()
+                        self.splitKeys.append(_elem293)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('isTableAvailableWithSplit_args')
+        if self.tableName is not None:
+            oprot.writeFieldBegin('tableName', TType.STRUCT, 1)
+            self.tableName.write(oprot)
+            oprot.writeFieldEnd()
+        if self.splitKeys is not None:
+            oprot.writeFieldBegin('splitKeys', TType.LIST, 2)
+            oprot.writeListBegin(TType.STRING, len(self.splitKeys))
+            for iter294 in self.splitKeys:
+                oprot.writeBinary(iter294)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.tableName is None:
+            raise TProtocolException(message='Required field tableName is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(isTableAvailableWithSplit_args)
+isTableAvailableWithSplit_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'tableName', [TTableName, None], None, ),  # 1
+    (2, TType.LIST, 'splitKeys', (TType.STRING, 'BINARY', False), None, ),  # 2
+)
+
+
+class isTableAvailableWithSplit_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('isTableAvailableWithSplit_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(isTableAvailableWithSplit_result)
+isTableAvailableWithSplit_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class addColumnFamily_args(object):
+    """
+    Attributes:
+     - tableName: the tablename to add column family to
+     - column: column family descriptor of column family to be added
+
+    """
+
+
+    def __init__(self, tableName=None, column=None,):
+        self.tableName = tableName
+        self.column = column
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.tableName = TTableName()
+                    self.tableName.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.column = TColumnFamilyDescriptor()
+                    self.column.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('addColumnFamily_args')
+        if self.tableName is not None:
+            oprot.writeFieldBegin('tableName', TType.STRUCT, 1)
+            self.tableName.write(oprot)
+            oprot.writeFieldEnd()
+        if self.column is not None:
+            oprot.writeFieldBegin('column', TType.STRUCT, 2)
+            self.column.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.tableName is None:
+            raise TProtocolException(message='Required field tableName is unset!')
+        if self.column is None:
+            raise TProtocolException(message='Required field column is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(addColumnFamily_args)
+addColumnFamily_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'tableName', [TTableName, None], None, ),  # 1
+    (2, TType.STRUCT, 'column', [TColumnFamilyDescriptor, None], None, ),  # 2
+)
+
+
+class addColumnFamily_result(object):
+    """
+    Attributes:
+     - io
+
+    """
+
+
+    def __init__(self, io=None,):
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('addColumnFamily_result')
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(addColumnFamily_result)
+addColumnFamily_result.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class deleteColumnFamily_args(object):
+    """
+    Attributes:
+     - tableName: the tablename to delete column family from
+     - column: name of column family to be deleted
+
+    """
+
+
+    def __init__(self, tableName=None, column=None,):
+        self.tableName = tableName
+        self.column = column
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.tableName = TTableName()
+                    self.tableName.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.column = iprot.readBinary()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('deleteColumnFamily_args')
+        if self.tableName is not None:
+            oprot.writeFieldBegin('tableName', TType.STRUCT, 1)
+            self.tableName.write(oprot)
+            oprot.writeFieldEnd()
+        if self.column is not None:
+            oprot.writeFieldBegin('column', TType.STRING, 2)
+            oprot.writeBinary(self.column)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.tableName is None:
+            raise TProtocolException(message='Required field tableName is unset!')
+        if self.column is None:
+            raise TProtocolException(message='Required field column is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(deleteColumnFamily_args)
+deleteColumnFamily_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'tableName', [TTableName, None], None, ),  # 1
+    (2, TType.STRING, 'column', 'BINARY', None, ),  # 2
+)
+
+
+class deleteColumnFamily_result(object):
+    """
+    Attributes:
+     - io
+
+    """
+
+
+    def __init__(self, io=None,):
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('deleteColumnFamily_result')
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(deleteColumnFamily_result)
+deleteColumnFamily_result.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class modifyColumnFamily_args(object):
+    """
+    Attributes:
+     - tableName: the tablename to modify column family
+     - column: column family descriptor of column family to be modified
+
+    """
+
+
+    def __init__(self, tableName=None, column=None,):
+        self.tableName = tableName
+        self.column = column
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.tableName = TTableName()
+                    self.tableName.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.column = TColumnFamilyDescriptor()
+                    self.column.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('modifyColumnFamily_args')
+        if self.tableName is not None:
+            oprot.writeFieldBegin('tableName', TType.STRUCT, 1)
+            self.tableName.write(oprot)
+            oprot.writeFieldEnd()
+        if self.column is not None:
+            oprot.writeFieldBegin('column', TType.STRUCT, 2)
+            self.column.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.tableName is None:
+            raise TProtocolException(message='Required field tableName is unset!')
+        if self.column is None:
+            raise TProtocolException(message='Required field column is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(modifyColumnFamily_args)
+modifyColumnFamily_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'tableName', [TTableName, None], None, ),  # 1
+    (2, TType.STRUCT, 'column', [TColumnFamilyDescriptor, None], None, ),  # 2
+)
+
+
+class modifyColumnFamily_result(object):
+    """
+    Attributes:
+     - io
+
+    """
+
+
+    def __init__(self, io=None,):
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('modifyColumnFamily_result')
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(modifyColumnFamily_result)
+modifyColumnFamily_result.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class modifyTable_args(object):
+    """
+    Attributes:
+     - desc: the descriptor of the table to modify
+
+    """
+
+
+    def __init__(self, desc=None,):
+        self.desc = desc
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.desc = TTableDescriptor()
+                    self.desc.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('modifyTable_args')
+        if self.desc is not None:
+            oprot.writeFieldBegin('desc', TType.STRUCT, 1)
+            self.desc.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.desc is None:
+            raise TProtocolException(message='Required field desc is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(modifyTable_args)
+modifyTable_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'desc', [TTableDescriptor, None], None, ),  # 1
+)
+
+
+class modifyTable_result(object):
+    """
+    Attributes:
+     - io
+
+    """
+
+
+    def __init__(self, io=None,):
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('modifyTable_result')
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(modifyTable_result)
+modifyTable_result.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class createNamespace_args(object):
+    """
+    Attributes:
+     - namespaceDesc: descriptor which describes the new namespace
+
+    """
+
+
+    def __init__(self, namespaceDesc=None,):
+        self.namespaceDesc = namespaceDesc
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.namespaceDesc = TNamespaceDescriptor()
+                    self.namespaceDesc.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('createNamespace_args')
+        if self.namespaceDesc is not None:
+            oprot.writeFieldBegin('namespaceDesc', TType.STRUCT, 1)
+            self.namespaceDesc.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.namespaceDesc is None:
+            raise TProtocolException(message='Required field namespaceDesc is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(createNamespace_args)
+createNamespace_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'namespaceDesc', [TNamespaceDescriptor, None], None, ),  # 1
+)
+
+
+class createNamespace_result(object):
+    """
+    Attributes:
+     - io
+
+    """
+
+
+    def __init__(self, io=None,):
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('createNamespace_result')
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(createNamespace_result)
+createNamespace_result.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class modifyNamespace_args(object):
+    """
+    Attributes:
+     - namespaceDesc: descriptor which describes the new namespace
+
+    """
+
+
+    def __init__(self, namespaceDesc=None,):
+        self.namespaceDesc = namespaceDesc
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.namespaceDesc = TNamespaceDescriptor()
+                    self.namespaceDesc.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('modifyNamespace_args')
+        if self.namespaceDesc is not None:
+            oprot.writeFieldBegin('namespaceDesc', TType.STRUCT, 1)
+            self.namespaceDesc.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.namespaceDesc is None:
+            raise TProtocolException(message='Required field namespaceDesc is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(modifyNamespace_args)
+modifyNamespace_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'namespaceDesc', [TNamespaceDescriptor, None], None, ),  # 1
+)
+
+
+class modifyNamespace_result(object):
+    """
+    Attributes:
+     - io
+
+    """
+
+
+    def __init__(self, io=None,):
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('modifyNamespace_result')
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(modifyNamespace_result)
+modifyNamespace_result.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class deleteNamespace_args(object):
+    """
+    Attributes:
+     - name: namespace name
+
+    """
+
+
+    def __init__(self, name=None,):
+        self.name = name
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.name = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('deleteNamespace_args')
+        if self.name is not None:
+            oprot.writeFieldBegin('name', TType.STRING, 1)
+            oprot.writeString(self.name.encode('utf-8') if sys.version_info[0] == 2 else self.name)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.name is None:
+            raise TProtocolException(message='Required field name is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(deleteNamespace_args)
+deleteNamespace_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'name', 'UTF8', None, ),  # 1
+)
+
+
+class deleteNamespace_result(object):
+    """
+    Attributes:
+     - io
+
+    """
+
+
+    def __init__(self, io=None,):
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('deleteNamespace_result')
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(deleteNamespace_result)
+deleteNamespace_result.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class getNamespaceDescriptor_args(object):
+    """
+    Attributes:
+     - name: name of namespace descriptor
+
+    """
+
+
+    def __init__(self, name=None,):
+        self.name = name
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.name = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getNamespaceDescriptor_args')
+        if self.name is not None:
+            oprot.writeFieldBegin('name', TType.STRING, 1)
+            oprot.writeString(self.name.encode('utf-8') if sys.version_info[0] == 2 else self.name)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.name is None:
+            raise TProtocolException(message='Required field name is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getNamespaceDescriptor_args)
+getNamespaceDescriptor_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'name', 'UTF8', None, ),  # 1
+)
+
+
+class getNamespaceDescriptor_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = TNamespaceDescriptor()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getNamespaceDescriptor_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getNamespaceDescriptor_result)
+getNamespaceDescriptor_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [TNamespaceDescriptor, None], None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class listNamespaceDescriptors_args(object):
+
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('listNamespaceDescriptors_args')
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(listNamespaceDescriptors_args)
+listNamespaceDescriptors_args.thrift_spec = (
+)
+
+
+class listNamespaceDescriptors_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype298, _size295) = iprot.readListBegin()
+                    for _i299 in range(_size295):
+                        _elem300 = TNamespaceDescriptor()
+                        _elem300.read(iprot)
+                        self.success.append(_elem300)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('listNamespaceDescriptors_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter301 in self.success:
+                iter301.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(listNamespaceDescriptors_result)
+listNamespaceDescriptors_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [TNamespaceDescriptor, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class listNamespaces_args(object):
+
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('listNamespaces_args')
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(listNamespaces_args)
+listNamespaces_args.thrift_spec = (
+)
+
+
+class listNamespaces_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype305, _size302) = iprot.readListBegin()
+                    for _i306 in range(_size302):
+                        _elem307 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success.append(_elem307)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('listNamespaces_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRING, len(self.success))
+            for iter308 in self.success:
+                oprot.writeString(iter308.encode('utf-8') if sys.version_info[0] == 2 else iter308)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(listNamespaces_result)
+listNamespaces_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRING, 'UTF8', False), None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class getThriftServerType_args(object):
+
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getThriftServerType_args')
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getThriftServerType_args)
+getThriftServerType_args.thrift_spec = (
+)
+
+
+class getThriftServerType_result(object):
+    """
+    Attributes:
+     - success
+
+    """
+
+
+    def __init__(self, success=None,):
+        self.success = success
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.I32:
+                    self.success = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getThriftServerType_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.I32, 0)
+            oprot.writeI32(self.success)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getThriftServerType_result)
+getThriftServerType_result.thrift_spec = (
+    (0, TType.I32, 'success', None, None, ),  # 0
+)
+
+
+class getSlowLogResponses_args(object):
+    """
+    Attributes:
+     - serverNames: @param serverNames Server names to get slowlog responses from
+     - logQueryFilter: @param logQueryFilter filter to be used if provided
+
+    """
+
+
+    def __init__(self, serverNames=None, logQueryFilter=None,):
+        self.serverNames = serverNames
+        self.logQueryFilter = logQueryFilter
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.SET:
+                    self.serverNames = set()
+                    (_etype312, _size309) = iprot.readSetBegin()
+                    for _i313 in range(_size309):
+                        _elem314 = TServerName()
+                        _elem314.read(iprot)
+                        self.serverNames.add(_elem314)
+                    iprot.readSetEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.logQueryFilter = TLogQueryFilter()
+                    self.logQueryFilter.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getSlowLogResponses_args')
+        if self.serverNames is not None:
+            oprot.writeFieldBegin('serverNames', TType.SET, 1)
+            oprot.writeSetBegin(TType.STRUCT, len(self.serverNames))
+            for iter315 in self.serverNames:
+                iter315.write(oprot)
+            oprot.writeSetEnd()
+            oprot.writeFieldEnd()
+        if self.logQueryFilter is not None:
+            oprot.writeFieldBegin('logQueryFilter', TType.STRUCT, 2)
+            self.logQueryFilter.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getSlowLogResponses_args)
+getSlowLogResponses_args.thrift_spec = (
+    None,  # 0
+    (1, TType.SET, 'serverNames', (TType.STRUCT, [TServerName, None], False), None, ),  # 1
+    (2, TType.STRUCT, 'logQueryFilter', [TLogQueryFilter, None], None, ),  # 2
+)
+
+
+class getSlowLogResponses_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype319, _size316) = iprot.readListBegin()
+                    for _i320 in range(_size316):
+                        _elem321 = TOnlineLogRecord()
+                        _elem321.read(iprot)
+                        self.success.append(_elem321)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getSlowLogResponses_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter322 in self.success:
+                iter322.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getSlowLogResponses_result)
+getSlowLogResponses_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [TOnlineLogRecord, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class clearSlowLogResponses_args(object):
+    """
+    Attributes:
+     - serverNames: @param serverNames Set of Server names to clean slowlog responses from
+
+    """
+
+
+    def __init__(self, serverNames=None,):
+        self.serverNames = serverNames
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.SET:
+                    self.serverNames = set()
+                    (_etype326, _size323) = iprot.readSetBegin()
+                    for _i327 in range(_size323):
+                        _elem328 = TServerName()
+                        _elem328.read(iprot)
+                        self.serverNames.add(_elem328)
+                    iprot.readSetEnd()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('clearSlowLogResponses_args')
+        if self.serverNames is not None:
+            oprot.writeFieldBegin('serverNames', TType.SET, 1)
+            oprot.writeSetBegin(TType.STRUCT, len(self.serverNames))
+            for iter329 in self.serverNames:
+                iter329.write(oprot)
+            oprot.writeSetEnd()
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(clearSlowLogResponses_args)
+clearSlowLogResponses_args.thrift_spec = (
+    None,  # 0
+    (1, TType.SET, 'serverNames', (TType.STRUCT, [TServerName, None], False), None, ),  # 1
+)
+
+
+class clearSlowLogResponses_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype333, _size330) = iprot.readListBegin()
+                    for _i334 in range(_size330):
+                        _elem335 = iprot.readBool()
+                        self.success.append(_elem335)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('clearSlowLogResponses_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.BOOL, len(self.success))
+            for iter336 in self.success:
+                oprot.writeBool(iter336)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(clearSlowLogResponses_result)
+clearSlowLogResponses_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.BOOL, None, False), None, ),  # 0
     (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
 )
 fix_spec(all_structs)
