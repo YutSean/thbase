@@ -34,12 +34,14 @@ class Connection(object):
                  retry_timeout,
                  retry_times,
                  use_ssl,
-                 use_http):
+                 use_http,
+                 hide_http_port):
 
         self.host = host
         self.port = port
         self.use_ssl = use_ssl
         self.use_http = use_http
+        self.hide_http_port = hide_http_port
 
         self._transport_type = THRIFT_TRANSPORTS[transport_type]
         self._protocol_type = THRIFT_PROTOCOLS[protocol_type]
@@ -58,12 +60,12 @@ class Connection(object):
         """
         if self.use_http:
             # if use http transport,
-            if self.use_ssl:
-                prefix = 'https://'
+            prefix = 'https://' if self.use_ssl else 'http://'
+            if self.hide_http_port:
                 self.transport = THttpClient(uri_or_host=prefix + self.host)
             else:
-                prefix = 'http://'
                 self.transport = THttpClient(uri_or_host=prefix + self.host + ':' + str(self.port) + '/thrift.jsp')
+            # http only support binary protocol
             self.protocol = TBinaryProtocol.TBinaryProtocol(self.transport)
             return
 

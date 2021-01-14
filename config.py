@@ -14,6 +14,7 @@ USE_SSL_DEFAULT = False
 USE_HTTP_DEFAULT = False
 RECONNECTION_TIMES = 10
 RECONNECTION_TIMEOUT = 10
+HIDE_HTTP_PORT_DEFAULT = False
 
 
 class ClientConfig(object):
@@ -28,6 +29,7 @@ class ClientConfig(object):
                  use_ssl=USE_SSL_DEFAULT,  # type: bool
                  batch_size=BATCH_SIZE_DEFAULT,  # type: int
                  use_http=USE_HTTP_DEFAULT,  # type: bool
+                 hide_http_port=HIDE_HTTP_PORT_DEFAULT,  # type: bool
                  ):
         """
         Basic client configuration.
@@ -58,6 +60,7 @@ class ClientConfig(object):
         self._batch_size = batch_size
         self._use_ssl = use_ssl
         self._use_http = use_http
+        self._hide_http_port = hide_http_port
         self._parametereter_check()
 
     def _parametereter_check(self):
@@ -70,9 +73,11 @@ class ClientConfig(object):
         if not isinstance(self.batch_size, int) or self.batch_size < 1:
             raise ValueError("Batch size must be a positive integer.")
         if not isinstance(self.use_ssl, bool):
-            raise ValueError("parametereter use_ssl must be a bool value.")
+            raise ValueError("Parameter use_ssl must be a bool value.")
         if not isinstance(self.use_http, bool):
-            raise ValueError("parametereter use_http must be a bool value.")
+            raise ValueError("Parameter use_http must be a bool value.")
+        if not isinstance(self.hide_http_port, bool):
+            raise ValueError("Parameter hide_http_port must be a bool value.")
         if self._transport_type not in TransportType:
             raise ValueError("Invalid type of transport {}. Use one of the specific enum type {}."
                              .format(type(self._transport_type), ', '.join([str(a) for a in TransportType])))
@@ -123,6 +128,10 @@ class ClientConfig(object):
     @property
     def retry_timeout(self):
         return self._retry_timeout
+
+    @property
+    def hide_http_port(self):
+        return self._hide_http_port
 
     @batch_size.setter
     def batch_size(self, value):
