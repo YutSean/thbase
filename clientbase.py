@@ -72,6 +72,12 @@ class ClientBase(object):
             obr.handle(message_type, value)
 
     def open_connection(self):
+        """
+        This method open the connection with thrift server.
+        Raise TTransport exception.
+        Returns: True if success, else False.
+
+        """
         try:
             if not self.connection.is_open():
                 self.connection.open()
@@ -79,15 +85,16 @@ class ClientBase(object):
             return True
         except Exception as e:
             self.notify(MessageType.ERROR, e)
-            return self.open_connection()
+            return self.connection.is_open()
 
     def close_connection(self):
-        try:
-            if self.connection.is_open():
-                self.connection.close()
-        except Exception as e:
-            self.notify(MessageType.ERROR, e)
-            return self.close_connection()
+        """
+        This method close the current connection. The close() will not raise any exception and will always success.
+        Returns: None
+
+        """
+        if self.connection.is_open():
+            self.connection.close()
 
     def put_row(self, table_name, put):
         """
