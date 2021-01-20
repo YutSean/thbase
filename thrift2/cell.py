@@ -1,5 +1,5 @@
 from typing import Union
-
+from pythbase.util.bytes import to_str
 
 class Cell(object):
 
@@ -53,4 +53,5 @@ class Cell(object):
         return self._timestamp
 
     def __str__(self):
-        return ":".join([self.table_name, self.row, self.family, self.qualifier]) + ' => ' + self.value
+        return ":".join([to_str(self.table_name), to_str(self.row), to_str(self.family), to_str(self.qualifier)]) + \
+               ' => ' + to_str(self.value)

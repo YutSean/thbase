@@ -1,4 +1,4 @@
-from config import ClientConfig
+from pythbase.config import ClientConfig
 from pythbase.connection import Connection
 from pythbase.util.handlers import ExceptionHandler, MessageType
 import logging

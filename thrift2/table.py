@@ -4,6 +4,8 @@ from pythbase.thrift2.cell import Cell
 from pythbase.hbase.ttypes import TResult
 from pythbase.util.executor import Executor
 from pythbase.util import type_check
+from sys import version_info
+from pythbase.util.bytes import to_bytes
 import logging
 
 logger = logging.getLogger(__name__)
@@ -17,7 +19,7 @@ class Table(object):
     """
     def __init__(self, table_name, client):
         # type: (str, Client) -> None
-        self._name = table_name
+        self._name = to_bytes(table_name)
         self._client = client
         self.conf = client.conf
         self.executor = Executor(self.conf.retry_times, self.conf.retry_timeout, master=self._client)

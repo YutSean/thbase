@@ -1,4 +1,4 @@
-from handlers import ExceptionHandler, MessageType
+from pythbase.util.handlers import ExceptionHandler, MessageType
 from pythbase.hbase.ttypes import TException
 
 import logging
