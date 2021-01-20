@@ -2,9 +2,8 @@ from typing import List
 from pythbase.thrift2.operation import Get, Put, Delete, Scan
 from pythbase.thrift2.cell import Cell
 from pythbase.hbase.ttypes import TResult
-from pythbase.util.executor import Executor
 from pythbase.util import type_check
-from sys import version_info
+from pythbase.util.executor import Executor
 from pythbase.util.bytes import to_bytes
 import logging
 
