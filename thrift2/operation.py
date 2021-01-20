@@ -79,8 +79,6 @@ class Put(Operation):
                  qualifier,  # type: Union[None, str, List[str]]
                  value,  # type: Union[str, List[str]]
                  ):
-        if not family:
-            raise ValueError("Family must be given when doing put operation.")
         super(Put, self).__init__(row, family, qualifier, value)
         column_values = []
         columns = _column_format(family, qualifier)

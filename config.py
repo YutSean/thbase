@@ -123,9 +123,3 @@ class ClientConfig(object):
     @property
     def retry_timeout(self):
         return self._retry_timeout
-
-    @batch_size.setter
-    def batch_size(self, value):
-        if not isinstance(value, int) or value <= 0:
-            raise ValueError("Batch size must be an positive Integer.")
-        self._batch_size = value
