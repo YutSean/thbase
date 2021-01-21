@@ -13,7 +13,7 @@ setup(
     classifiers=[
         'Development Status :: 1 - first version',
         'Intended Audience :: Developers',
-        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 2.7, 3.6',
     ],
     packages=find_packages(),
     py_modules=["pythbase"],
