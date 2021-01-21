@@ -52,7 +52,6 @@ class Connection(object):
 
     def _rebuild_protocol(self):
         """
-        @Deprecated
         Rebuild the transport, protocol from the configuration.
         Should not be used directly by users.
         Returns:
@@ -61,11 +60,7 @@ class Connection(object):
         if self.use_http:
             # if use http transport,
             prefix = 'https://' if self.use_ssl else 'http://'
-            if self.hide_http_port:
-                self.transport = THttpClient(uri_or_host=prefix + self.host)
-            else:
-                self.transport = THttpClient(uri_or_host=prefix + self.host + ':' + str(self.port) + '/thrift.jsp')
-            # http only support binary protocol
+            self.transport = THttpClient(uri_or_host=prefix + self.host + ':' + str(self.port))
             self.protocol = TBinaryProtocol.TBinaryProtocol(self.transport)
             return
 
@@ -93,9 +88,8 @@ class Connection(object):
             logger.debug("Closing thrift transport to {}:{}.".format(self.host, self.port))
         self.transport.close()
 
-    def reconnect(self):
+    def _reconnect(self):
         """
-        @Deprecated
         Method to rebuild the connection with thrift server. Should not be used by the user directly.
         Returns: None
 

@@ -1,13 +1,14 @@
 from typing import Union
+from pythbase.util.bytes import to_str
 
 
 class Cell(object):
 
-    def __init__(self, table_name,  # type: Union[None, str]
-                 row,  # type: Union[None, str]
-                 family,  # type: Union[None, str]
-                 qualifier,  # type: Union[None, str]
-                 value,  # type: Union[None, str]
+    def __init__(self, table_name,  # type: Union[None, bytes]
+                 row,  # type: Union[None, bytes]
+                 family,  # type: Union[None, bytes]
+                 qualifier,  # type: Union[None, bytes]
+                 value,  # type: Union[None, bytes]
                  timestamp,  # type: Union[None, int]
                  ):
         """
@@ -53,4 +54,5 @@ class Cell(object):
         return self._timestamp
 
     def __str__(self):
-        return ":".join([self.table_name, self.row, self.family, self.qualifier]) + ' => ' + self.value
+        return ":".join([to_str(self.table_name), to_str(self.row), to_str(self.family), to_str(self.qualifier)]) + \
+               ' => ' + to_str(self.value)

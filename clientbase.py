@@ -1,6 +1,7 @@
-from config import ClientConfig
+from pythbase.config import ClientConfig
 from pythbase.connection import Connection
 from pythbase.util.handlers import ExceptionHandler, MessageType
+import abc
 import logging
 
 logger = logging.getLogger(__name__)
@@ -73,24 +74,33 @@ class ClientBase(object):
             obr.handle(message_type, value)
 
     def open_connection(self):
+        """
+        This method open the connection with thrift server.
+        Raise TTransport exception.
+        Returns: True if success, else False.
+
+        """
         try:
             if not self.connection.is_open():
                 self.connection.open()
-                return True
+                return self.connection.is_open()
+            return True
         except Exception as e:
-            return self.notify(MessageType.ERROR, e)
+            self.notify(MessageType.ERROR, e)
+            return self.connection.is_open()
 
     def close_connection(self):
-        try:
-            if self.connection.is_open():
-                self.connection.close()
-                return True
-        except Exception as e:
-            return self.notify(MessageType.ERROR, e)
-
-    def put_row(self, table_name, put):
         """
-        @Deprecated
+        This method close the current connection. The close() will not raise any exception and will always success.
+        Returns: None
+
+        """
+        if self.connection.is_open():
+            self.connection.close()
+
+    @abc.abstractmethod
+    def _put_row(self, table_name, put):
+        """
         Send a single put request to thrift server. Only should be invoked by a Table object.
         Args:
             table_name: Should be invoked by a Table object.
@@ -102,9 +112,9 @@ class ClientBase(object):
         """
         pass
 
-    def put_rows(self, table_name, put_list):
+    @abc.abstractmethod
+    def _put_rows(self, table_name, put_list):
         """
-        @Deprecated
         Send a batch of put requests to thrift server. Only should be invoked by a Table object.
         Args:
             table_name: a str representation of Table name, including the namespace part.
@@ -116,9 +126,9 @@ class ClientBase(object):
         """
         pass
 
-    def get_row(self, table_name, get):
+    @abc.abstractmethod
+    def _get_row(self, table_name, get):
         """
-        @Deprecated
         Send a single get request to thrift server. Only should be invoked by a Table object.
         Args:
             table_name: a str representation of Table name, including the namespace part.
@@ -129,9 +139,9 @@ class ClientBase(object):
         """
         pass
 
-    def get_rows(self, table_name, get_list):
+    @abc.abstractmethod
+    def _get_rows(self, table_name, get_list):
         """
-        @Deprecated
         Send a batch of get requests to thrift server. Only should be invoked by a Table object.
         Args:
             table_name: a str representation of Table name, including the namespace part.
@@ -142,9 +152,9 @@ class ClientBase(object):
         """
         pass
 
-    def scan(self, table_name, scan):
+    @abc.abstractmethod
+    def _scan(self, table_name, scan):
         """
-        @Deprecated
         Send a scan request to thrift server. Only should be invoked by a Table object.
         Args:
             table_name: a str representation of Table name, including the namespace part.
@@ -155,9 +165,10 @@ class ClientBase(object):
         """
         pass
 
-    def delete_row(self, table_name, delete):
+    @abc.abstractmethod
+    def _delete_row(self, table_name, delete):
         """
-        @Deprecated
+        
         Send a delete request to thrift server. Only should be invoked by a Table object.
         Args:
             table_name: a str representation of Table name, including the namespace part.
@@ -168,9 +179,9 @@ class ClientBase(object):
         """
         pass
 
-    def delete_batch(self, table_name, delete_list):
+    @abc.abstractmethod
+    def _delete_batch(self, table_name, delete_list):
         """
-        @Deprecated
         Send a batch of delete requests to thrift server. Only should be invoked by a Table object.
         Args:
             table_name: a str representation of Table name, including the namespace part.
@@ -181,15 +192,16 @@ class ClientBase(object):
         """
         pass
 
-    def refresh_client(self):
+    @abc.abstractmethod
+    def _refresh_client(self):
         """
-        @Deprecated
         Reconstruct a client, be used when the client reconnects to the thrift server.
         Returns:
             None
         """
         pass
 
+    @abc.abstractmethod
     def get_table(self, table_name):
         """
         Get a Table object of given table name.

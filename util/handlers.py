@@ -1,7 +1,7 @@
 from enum import Enum
 from pythbase.hbase.ttypes import TApplicationException, TIOError, TIllegalArgument
 from thrift.transport.TTransport import TTransportException
-
+import abc
 import logging
 logger = logging.getLogger(__name__)
 
@@ -13,6 +13,7 @@ class Observer(object):
     def __init__(self, target):
         self.target = target
 
+    @abc.abstractmethod
     def handle(self, **kwargs):
         pass
 
@@ -57,7 +58,7 @@ class ExceptionHandler(Observer):
                     logger.warn("A transport error occurs, the message is: {}".format(value.message))
                     logger.warn("This error may be solved by rebuild the connection with the server. "
                                 "System will rebuild the connection to thrift server.")
-                    self.target.connection.reconnect()
+                    self.target.connection._reconnect()
                     self.target.refresh_client()
                     return True
                 if value.type == TTransportException.ALREADY_OPEN:

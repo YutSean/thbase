@@ -17,9 +17,9 @@ class Client(ClientBase):
         super(Client, self).__init__(conf=conf)
         self.client = THBaseService.Client(self.connection.protocol)
 
-    def put_row(self, **kwargs):
+    def _put_row(self, **kwargs):
         """
-        Deprecated. Internal method, should not be used by users.
+        Private method, should not be used by users.
         Args:
             **kwargs:
 
@@ -31,9 +31,9 @@ class Client(ClientBase):
         self.client.put(table_name, put.core)
         return True
 
-    def put_rows(self, **kwargs):
+    def _put_rows(self, **kwargs):
         """
-        Deprecated. Internal method, should not be used by users.
+        Private method, should not be used by users.
         Args:
             **kwargs:
 
@@ -45,9 +45,9 @@ class Client(ClientBase):
         self.client.putMultiple(table_name, [put.core for put in puts])
         return True
 
-    def get_row(self, **kwargs):
+    def _get_row(self, **kwargs):
         """
-        Deprecated. Internal method, should not be used by users.
+        Private method, should not be used by users.
         Args:
             **kwargs:
 
@@ -59,9 +59,9 @@ class Client(ClientBase):
         result = self.client.get(table_name, get.core)
         return [result]
 
-    def get_rows(self, **kwargs):
+    def _get_rows(self, **kwargs):
         """
-        Deprecated. Internal method, should not be used by users.
+        Private method, should not be used by users.
         Args:
             **kwargs:
 
@@ -72,9 +72,9 @@ class Client(ClientBase):
         gets = kwargs['gets']
         return self.client.getMultiple(table_name, [get.core for get in gets])
 
-    def scan(self, **kwargs):
+    def _scan(self, **kwargs):
         """
-        Deprecated. Internal method, should not be used by users.
+        Private method, should not be used by users.
         Args:
             **kwargs:
 
@@ -86,9 +86,9 @@ class Client(ClientBase):
         result = self.client.getScannerResults(table_name, scan.core, scan.num_rows)
         return result
 
-    def delete_row(self, **kwargs):
+    def _delete_row(self, **kwargs):
         """
-        Deprecated. Internal method, should not be used by users.
+        Private method, should not be used by users.
         Args:
             **kwargs:
 
@@ -99,9 +99,9 @@ class Client(ClientBase):
         delete = kwargs['delete']
         self.client.deleteSingle(table_name, delete.core)
 
-    def delete_batch(self, **kwargs):
+    def _delete_batch(self, **kwargs):
         """
-        Deprecated. Internal method, should not be used by users.
+        Private method, should not be used by users.
         Args:
             **kwargs:
 
@@ -112,9 +112,9 @@ class Client(ClientBase):
         deletes = kwargs['deletes']
         self.client.deleteMultiple(table_name, [delete.core for delete in deletes])
 
-    def refresh_client(self):
+    def _refresh_client(self):
         """
-        Deprecated. Internal method, should not be used by users.
+        Private method, should not be used by users.
         Args:
             **kwargs:
 
@@ -125,7 +125,7 @@ class Client(ClientBase):
 
     def get_table(self, table_name):
         """
-        Deprecated. Internal method, should not be used by users.
+        Acquire a table object to use functional methods.
         Args:
             **kwargs:
 

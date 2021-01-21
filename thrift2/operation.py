@@ -1,3 +1,4 @@
+from pythbase.util.bytes import to_bytes
 from typing import List, Union
 from pythbase.hbase.ttypes import TGet, TDelete, TScan, TPut, TColumnValue, TColumn
 
@@ -11,10 +12,10 @@ class Operation(object):
                  qualifier,  # type: Union[None, str]
                  value,  # type: Union[None, str]
                  ):
-        self.row = row
-        self.family = family
-        self.qualifier = qualifier
-        self.value = value
+        self.row = to_bytes(row)
+        self.family = to_bytes(family)
+        self.qualifier = to_bytes(qualifier)
+        self.value = to_bytes(value)
 
 
 class Get(Operation):
@@ -43,7 +44,7 @@ class Delete(Operation):
                  ):
         super(Delete, self).__init__(row, family, qualifier, value)
         self.core = TDelete(
-            row=row,
+            row=self.row,
             columns=_column_format(self.family, self.qualifier),
         )
 
@@ -60,7 +61,7 @@ class Scan(Operation):
                  ):
         super(Scan, self).__init__(start_row, family, qualifier, None)
         self.reversed = reversed
-        self.stop_row = stop_row
+        self.stop_row = to_bytes(stop_row)
         self.num_rows = num_rows
         self.core = TScan(
             startRow=self.row,
@@ -78,17 +79,15 @@ class Put(Operation):
                  qualifier,  # type: Union[None, str, List[str]]
                  value,  # type: Union[str, List[str]]
                  ):
-        if not family:
-            raise ValueError("Family must be given when doing put operation.")
         super(Put, self).__init__(row, family, qualifier, value)
         column_values = []
-        columns = _column_format(self.family, self.qualifier)
+        columns = _column_format(family, qualifier)
         if isinstance(value, str):
             for col in columns:
                 column_values.append(TColumnValue(
-                    family=col.family,
-                    qualifier=col.qualifier,
-                    value=value
+                    family=to_bytes(col.family),
+                    qualifier=to_bytes(col.qualifier),
+                    value=self.value
                 ))
         elif isinstance(value, list) or isinstance(value, tuple):
             if len(columns) != len(value):
@@ -97,7 +96,7 @@ class Put(Operation):
                 column_values.append(TColumnValue(
                     family=col.family,
                     qualifier=col.qualifier,
-                    value=value[i]
+                    value=to_bytes(value[i])
                 ))
         self.core = TPut(
             row=self.row,
@@ -119,17 +118,17 @@ def _column_format(family, qualifier):
     """
     if family is None:
         return None
-    if not isinstance(family, str):
+    if not isinstance(family, str) and not isinstance(family, bytes):
         raise ValueError("A family name must be a str object, but got {}".format(type(family)))
-
+    family_bytes = to_bytes(family)
     if qualifier is None:
-        return [TColumn(family=family)]
+        return [TColumn(family=family_bytes)]
     if isinstance(qualifier, str):
-        return [TColumn(family=family, qualifier=qualifier)]
+        return [TColumn(family=family_bytes, qualifier=to_bytes(qualifier))]
     if isinstance(qualifier, list) or isinstance(qualifier, tuple):
         cols = []
         for cq in qualifier:
             if isinstance(cq, str) or cq is None:
-                cols.append(TColumn(family=family, qualifier=cq))
+                cols.append(TColumn(family=family_bytes, qualifier=to_bytes(cq)))
             else:
                 raise ValueError("Qualifier should be None, str or a list (tuple) of str")
