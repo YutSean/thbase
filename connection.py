@@ -34,12 +34,14 @@ class Connection(object):
                  retry_timeout,
                  retry_times,
                  use_ssl,
-                 use_http):
+                 use_http,
+                 hide_http_port):
 
         self.host = host
         self.port = port
         self.use_ssl = use_ssl
         self.use_http = use_http
+        self.hide_http_port = hide_http_port
 
         self._transport_type = THRIFT_TRANSPORTS[transport_type]
         self._protocol_type = THRIFT_PROTOCOLS[protocol_type]
