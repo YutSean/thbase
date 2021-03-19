@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 from enum import Enum
+from thbase.util.login import LoginEntry
 
 TransportType = Enum('TransportType', ['FRAMED', 'BUFFERED'])
 ProtocolType = Enum('ProtocolType', ['BINARY', 'COMPACT'])
@@ -43,6 +44,7 @@ class ClientConfig(object):
                  use_ssl=USE_SSL_DEFAULT,  # type: bool
                  batch_size=BATCH_SIZE_DEFAULT,  # type: int
                  use_http=USE_HTTP_DEFAULT,  # type: bool
+                 authentication=None
                  ):
         """
         Basic client configuration.
@@ -73,9 +75,10 @@ class ClientConfig(object):
         self._batch_size = batch_size
         self._use_ssl = use_ssl
         self._use_http = use_http
-        self._parametereter_check()
+        self._authentication = authentication
+        self._parameter_check()
 
-    def _parametereter_check(self):
+    def _parameter_check(self):
         if not isinstance(self.port, int) or self.port not in range(65536):
             raise ValueError("Port must be an integer in 0~65535.")
         if not isinstance(self.retry_times, int) or self.retry_times < 1:
@@ -85,9 +88,11 @@ class ClientConfig(object):
         if not isinstance(self.batch_size, int) or self.batch_size < 1:
             raise ValueError("Batch size must be a positive integer.")
         if not isinstance(self.use_ssl, bool):
-            raise ValueError("parametereter use_ssl must be a bool value.")
+            raise ValueError("parameter use_ssl must be a bool value.")
         if not isinstance(self.use_http, bool):
-            raise ValueError("parametereter use_http must be a bool value.")
+            raise ValueError("parameter use_http must be a bool value.")
+        if not (isinstance(self._authentication, LoginEntry) or None):
+            raise ValueError("parameter authentication must be a LoginEntry object or None.")
         if self._transport_type not in TransportType:
             raise ValueError("Invalid type of transport {}. Use one of the specific enum type {}."
                              .format(type(self._transport_type), ', '.join([str(a) for a in TransportType])))
@@ -138,3 +143,7 @@ class ClientConfig(object):
     @property
     def retry_timeout(self):
         return self._retry_timeout
+
+    @property
+    def authentication(self):
+        return self._authentication

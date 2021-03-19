@@ -18,7 +18,7 @@ import time
 
 from thrift.protocol import TBinaryProtocol, TCompactProtocol
 from thrift.transport.TSocket import TSocket
-from thrift.transport.TTransport import TBufferedTransport, TFramedTransport, TTransportException
+from thrift.transport.TTransport import TBufferedTransport, TFramedTransport, TTransportException, TSaslClientTransport
 from thrift.transport.THttpClient import THttpClient
 
 from thbase.config import TransportType, ProtocolType
@@ -49,12 +49,14 @@ class Connection(object):
                  retry_timeout,
                  retry_times,
                  use_ssl,
-                 use_http):
+                 use_http,
+                 authentication):
 
         self.host = host
         self.port = port
         self.use_ssl = use_ssl
         self.use_http = use_http
+        self.authentication = authentication
 
         self._transport_type = THRIFT_TRANSPORTS[transport_type]
         self._protocol_type = THRIFT_PROTOCOLS[protocol_type]
@@ -79,9 +81,17 @@ class Connection(object):
 
         if self.use_ssl:
             from thrift.transport.TSSLSocket import TSSLSocket
-            socket = TSSLSocket(host=self.host, port=self.port)
+            socket = TSSLSocket(host=self.host, port=self.port, validate=False)
         else:
             socket = TSocket(host=self.host, port=self.port)
+
+        if self.authentication:
+            socket = TSaslClientTransport(socket, host=self.host,
+                                          service=self.authentication.service,
+                                          mechanism=self.authentication.mechanism,
+                                          username=self.authentication.username,
+                                          password=self.authentication.password)
+
         self.transport = self._transport_type(socket)
         self.protocol = self._protocol_type(self.transport)
 
