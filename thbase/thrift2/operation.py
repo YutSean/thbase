@@ -36,7 +36,7 @@ class Operation(object):
 
 class Get(Operation):
 
-    def __init__(self, row,  # type: Union[str]
+    def __init__(self, row=None,  # type: Union[str]
                  family=None,  # type: Union[None, str]
                  qualifier=None,  # type: Union[None, str, List[str]]
                  value=None,  # type: Union[None, str]
@@ -53,7 +53,7 @@ class Get(Operation):
 
 class Delete(Operation):
 
-    def __init__(self, row,  # type: Union[str]
+    def __init__(self, row=None,  # type: Union[str]
                  family=None,  # type: Union[None, str]
                  qualifier=None,  # type: Union[None, str]
                  value=None,  # type: Union[None, str]
@@ -91,10 +91,11 @@ class Scan(Operation):
 
 class Put(Operation):
 
-    def __init__(self, row,  # type: Union[str]
-                 family,  # type: Union[None, str]
-                 qualifier,  # type: Union[None, str, List[str]]
-                 value,  # type: Union[str, List[str]]
+    def __init__(self,
+                 row=None,  # type: Union[str]
+                 family=None,  # type: Union[None, str]
+                 qualifier=None,  # type: Union[None, str, List[str]]
+                 value=None,  # type: Union[str, List[str]]
                  ):
         super(Put, self).__init__(row, family, qualifier, value)
         check_none(self.row, "Row cannot be none for Put operation.")

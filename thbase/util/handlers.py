@@ -61,12 +61,13 @@ class ExceptionHandler(Observer):
             if isinstance(value, TIOError):
                 error_str = "Connection errors occurred between thrift server and hbase server." \
                             "The error message is: {}".format(value.message)
-                if value.canRetry:
+                if hasattr(value, "canRetry") and value.canRetry:
                     logger.warn(error_str + " The error may be solved by retrying the request. "
                                             "The request will be resent soon.")
                     return True
                 else:
-                    logger.error(error_str + " The error cannot be solved by resend the request, client will shutdown.")
+                    logger.error(error_str + " The error cannot be solved by resending the request,"
+                                             " client will shutdown.")
                     raise value
             if isinstance(value, TTransportException):
                 if value.type == TTransportException.NOT_OPEN or value.type == TTransportException.TIMED_OUT:
