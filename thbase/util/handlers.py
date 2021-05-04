@@ -67,17 +67,19 @@ class ExceptionHandler(Observer):
                                                 "The request will be resent soon.")
                         return True
                     else:
-                        logger.error(error_str + " The error cannot be solved by resend the request, client will shutdown.")
+                        logger.error(error_str + " The error cannot be solved by resending the request,"
+                                                 " client will shutdown.")
                         raise value
                 except AttributeError:
-                    print("Old version of thrift.")
+                    raise AttributeError("Too old version of client.");
+
             if isinstance(value, TTransportException):
                 if value.type == TTransportException.NOT_OPEN or value.type == TTransportException.TIMED_OUT:
                     logger.warn("A transport error occurs, the message is: {}".format(value.message))
                     logger.warn("This error may be solved by rebuild the connection with the server. "
                                 "System will rebuild the connection to thrift server.")
                     self.target.connection._reconnect()
-                    self.target.refresh_client()
+                    self.target._refresh_client()
                     return True
                 if value.type == TTransportException.ALREADY_OPEN:
                     logger.error("A transport error occurs. The message is: {}".format(value.message))
