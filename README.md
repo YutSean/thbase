@@ -1,5 +1,5 @@
 # Project description
-
+This is a client python API for HBase thrift2 service. Added exception handling and autoretry, reconnection functions.
 ## Install
 Use pip to install the package (recommand).
 ```commandline
