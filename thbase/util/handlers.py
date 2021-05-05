@@ -76,8 +76,7 @@ class ExceptionHandler(Observer):
             if isinstance(value, TTransportException):
                 if value.type == TTransportException.NOT_OPEN or value.type == TTransportException.TIMED_OUT:
                     logger.warning("A transport error occurs, the message is: {}".format(value.message))
-                    logger.warning("This error may be solved by rebuild the connection with the server. "
-                                   "System will rebuild the connection to thrift server.")
+                    logger.warning("System will try to rebuild the connection to solve it.")
                     self.target.connection._reconnect()
                     self.target._refresh_client()
                     return True
