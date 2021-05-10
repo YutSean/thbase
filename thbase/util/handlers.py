@@ -63,15 +63,16 @@ class ExceptionHandler(Observer):
                             "The error message is: {}".format(value.message)
                 try:
                     if value.canRetry:
-                        logger.warn(error_str + " The error may be solved by retrying the request. "
-                                                "The request will be resent soon.")
+                        logger.warning(error_str + " The error may be solved by retrying."
+                                                   " Client will resend the request.")
                         return True
                     else:
                         logger.error(error_str + " The error cannot be solved by resending the request,"
                                                  " client will shutdown.")
                         raise value
                 except AttributeError:
-                    raise AttributeError("Too old version of client.");
+                    raise AttributeError("The IOError does not contain the canRetry mark. The error will be raised. "
+                                         "Please check if the client version is too old.")
 
             if isinstance(value, TTransportException):
                 if value.type == TTransportException.NOT_OPEN or value.type == TTransportException.TIMED_OUT:
