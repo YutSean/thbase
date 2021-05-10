@@ -3368,12 +3368,14 @@ class TIOError(TException):
 
     Attributes:
      - message
+     - canRetry
 
     """
 
 
-    def __init__(self, message=None,):
+    def __init__(self, message=None, canRetry=None,):
         self.message = message
+        self.canRetry = canRetry
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -3389,6 +3391,11 @@ class TIOError(TException):
                     self.message = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.BOOL:
+                    self.canRetry = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
             else:
                 iprot.skip(ftype)
             iprot.readFieldEnd()
@@ -3402,6 +3409,10 @@ class TIOError(TException):
         if self.message is not None:
             oprot.writeFieldBegin('message', TType.STRING, 1)
             oprot.writeString(self.message.encode('utf-8') if sys.version_info[0] == 2 else self.message)
+            oprot.writeFieldEnd()
+        if self.canRetry is not None:
+            oprot.writeFieldBegin('canRetry', TType.BOOL, 2)
+            oprot.writeBool(self.canRetry)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -3730,6 +3741,7 @@ all_structs.append(TIOError)
 TIOError.thrift_spec = (
     None,  # 0
     (1, TType.STRING, 'message', 'UTF8', None, ),  # 1
+    (2, TType.BOOL, 'canRetry', None, None, ),  # 2
 )
 all_structs.append(TIllegalArgument)
 TIllegalArgument.thrift_spec = (
