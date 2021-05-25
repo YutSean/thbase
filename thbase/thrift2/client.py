@@ -14,8 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 from thbase.hbase import THBaseService
+from thbase.hbase.ttypes import TTableDescriptor
 from thbase.clientbase import ClientBase
 from thbase.thrift2.table import Table
+from thbase.util.executor import Executor
+from thbase.util.bytes import to_bytes
+from thbase.util import type_check
+from thbase.util import str_to_tablename
 import logging
 
 logger = logging.getLogger(__name__)
@@ -31,6 +36,7 @@ class Client(ClientBase):
     def __init__(self, conf):
         super(Client, self).__init__(conf=conf)
         self.client = THBaseService.Client(self.connection.protocol)
+        self.executor = Executor(self.conf.retry_times, self.conf.retry_timeout, master=self)
 
     def _put_row(self, **kwargs):
         """
@@ -43,8 +49,7 @@ class Client(ClientBase):
         """
         table_name = kwargs['table_name']
         put = kwargs['put']
-        self.client.put(table_name, put.core)
-        return True
+        return self.executor.call(lambda: self.client.put(table_name, put.core))
 
     def _put_rows(self, **kwargs):
         """
@@ -57,8 +62,7 @@ class Client(ClientBase):
         """
         table_name = kwargs['table_name']
         puts = kwargs['puts']
-        self.client.putMultiple(table_name, [put.core for put in puts])
-        return True
+        return self.executor.call(lambda: self.client.putMultiple(table_name, [put.core for put in puts]))
 
     def _get_row(self, **kwargs):
         """
@@ -71,7 +75,7 @@ class Client(ClientBase):
         """
         table_name = kwargs['table_name']
         get = kwargs['get']
-        result = self.client.get(table_name, get.core)
+        result = self.executor.call(lambda: self.client.get(table_name, get.core))
         return [result]
 
     def _get_rows(self, **kwargs):
@@ -85,7 +89,7 @@ class Client(ClientBase):
         """
         table_name = kwargs['table_name']
         gets = kwargs['gets']
-        return self.client.getMultiple(table_name, [get.core for get in gets])
+        return self.executor.call(lambda: self.client.getMultiple(table_name, [get.core for get in gets]))
 
     def _scan(self, **kwargs):
         """
@@ -98,8 +102,7 @@ class Client(ClientBase):
         """
         table_name = kwargs['table_name']
         scan = kwargs['scan']
-        result = self.client.getScannerResults(table_name, scan.core, scan.num_rows)
-        return result
+        return self.executor.call(lambda: self.client.getScannerResults(table_name, scan.core, scan.num_rows))
 
     def _delete_row(self, **kwargs):
         """
@@ -112,7 +115,7 @@ class Client(ClientBase):
         """
         table_name = kwargs['table_name']
         delete = kwargs['delete']
-        self.client.deleteSingle(table_name, delete.core)
+        return self.executor.call(lambda: self.client.deleteSingle(table_name, delete.core))
 
     def _delete_batch(self, **kwargs):
         """
@@ -125,7 +128,7 @@ class Client(ClientBase):
         """
         table_name = kwargs['table_name']
         deletes = kwargs['deletes']
-        self.client.deleteMultiple(table_name, [delete.core for delete in deletes])
+        return self.executor.call(lambda: self.client.deleteMultiple(table_name, [delete.core for delete in deletes]))
 
     def _refresh_client(self):
         """
@@ -149,6 +152,69 @@ class Client(ClientBase):
         """
         return Table(table_name=table_name, client=self)
 
+    def create_table(self, desc, split_keys):
+        """
 
+        Args:
+            desc: TTableDescriptor, which contains the meta information of the table to create.
+            split_keys: split keys for table pre-split.
 
+        Returns: True if success, else False.
 
+        """
+        type_check(desc, TTableDescriptor)
+        type_check(split_keys, list)
+        return self.executor.call(lambda: self.client.createTable(desc, split_keys))
+
+    def delete_table(self, table_name):
+        """
+
+        Args:
+            table_name: The name of the table that need to be removed.
+
+        Returns: True if success, else False.
+
+        """
+        tn = str_to_tablename(table_name)
+        return self.executor.call(lambda: self.client.deleteTable(tn))
+
+    def enable_table(self, table_name):
+        """
+
+        Args:
+            table_name: The name of the table that need to be enabled.
+            If the table is already enabled, it will raise an Error.
+        Returns: True if success, else False.
+
+        """
+        tn = str_to_tablename(table_name)
+        return self.executor.call(lambda: self.client.enableTable(tn))
+
+    def disable_table(self, table_name):
+        """
+
+        Args:
+            table_name: The name of the table that need to be disabled.
+            If the table is already enabled, it will raise an Error.
+        Returns: True if success, else False.
+
+        """
+        tn = str_to_tablename(table_name)
+        return self.executor.call(lambda: self.client.disableTable(tn))
+
+    def truncate_table(self, table_name, preserve_splits):
+        """
+
+        Args:
+            table_name:
+            preserve_splits:
+
+        Returns:
+
+        """
+        tn = str_to_tablename(table_name)
+        return self.executor.call(lambda: self.client.truncateTable(tn, preserve_splits))
+
+    def is_enabled(self, table_name):
+        tn = str_to_tablename(table_name)
+        return self.executor.call(lambda: self.client.isTableEnabled(tn))

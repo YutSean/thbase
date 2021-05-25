@@ -13,7 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-__all__ = ['executor', 'handlers', 'type_check', 'check_none']
+from thbase.hbase.ttypes import TTableName
+from thbase.util.bytes import to_bytes
+
+__all__ = ['executor', 'handlers', 'type_check', 'check_none', 'str_to_tablename']
 
 
 def type_check(var, t):
@@ -25,4 +28,15 @@ def check_none(var, ms):
     if var is None:
         raise ValueError(ms)
 
+
+def str_to_tablename(name):
+    check_none(name, "")
+    type_check(name, str)
+    names = name.split(':')
+    if len(names) == 1:
+        return TTableName(ns=None, qualifier=to_bytes(names[0]))
+    elif len(names) == 2:
+        return TTableName(ns=to_bytes(names[0]), qualifier=to_bytes(names[1]))
+    else:
+        raise RuntimeError("Get table name with wrong format.")
 

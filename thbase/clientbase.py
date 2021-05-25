@@ -228,4 +228,76 @@ class ClientBase(object):
         """
         pass
 
+    @abc.abstractmethod
+    def create_table(self, desc, split_keys):
+        """
+        Create a table.
+        Args:
+            desc: a TTableDescriptor that contains the table meta data.
+            split_keys: keys for pre-splitting
 
+        Returns:
+            True if success, else False.
+        """
+        pass
+
+    @abc.abstractmethod
+    def delete_table(self, table_name):
+        """
+        Delete a table. The table should be disabled first.
+        Args:
+            table_name: The corresponding table name.
+
+        Returns:
+
+        """
+        pass
+
+    @abc.abstractmethod
+    def enable_table(self, table_name):
+        """
+        Enable a table. If the table is already enabled, will return an error.
+        Args:
+            table_name: The name of corresponding table.
+
+        Returns:
+
+        """
+        pass
+
+    @abc.abstractmethod
+    def disable_table(self, table_name):
+        """
+        Disable a table. If the table is already disabled, will return an error.
+        Args:
+            table_name: The name of corresponding table.
+
+        Returns:
+
+        """
+        pass
+
+    @abc.abstractmethod
+    def truncate_table(self, table_name, preserve_splits):
+        """
+        Drop a table and recreate it.
+        Args:
+            table_name: The name of the table.
+            preserve_splits: If the splits need to be preserved.
+
+        Returns:
+
+        """
+        pass
+
+    @abc.abstractmethod
+    def is_enabled(self, table_name):
+        """
+        Check if the given table is enabled.
+        Args:
+            table_name: TTableName
+
+        Returns:
+
+        """
+        pass
