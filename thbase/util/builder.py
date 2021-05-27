@@ -52,6 +52,7 @@ ENCODING_TYPES = [
 
 
 class ColumnDescriptorBuilder(object):
+
     def __init__(self, name=None):
         type_check(name, str)
         self.name = name
@@ -237,6 +238,7 @@ DURABILITY_TYPES = [
 
 
 class TableDescriptorBuilder(object):
+
     def __init__(self, name):
         self.name = name
         self.columns = []

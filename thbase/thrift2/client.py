@@ -16,6 +16,7 @@ limitations under the License.
 from thbase.hbase import THBaseService
 from thbase.hbase.ttypes import TTableDescriptor
 from thbase.hbase.ttypes import TColumnFamilyDescriptor
+from thbase.hbase.ttypes import TAccessControlEntity
 from thbase.clientbase import ClientBase
 from thbase.thrift2.table import Table
 from thbase.util.executor import Executor
@@ -315,3 +316,15 @@ class Client(ClientBase):
         """
         type_check(table_descriptor, TTableDescriptor)
         return self.executor.call(lambda: self.client.modifyTable(table_descriptor))
+
+    def perform_permissions(self, info):
+        """
+
+        Args:
+            info:
+
+        Returns:
+
+        """
+        type_check(info, TAccessControlEntity)
+        return self.executor.call(lambda: self.client.performPermissions(info))
