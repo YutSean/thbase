@@ -71,8 +71,7 @@ class Table(object):
         for put in puts:
             type_check(put, Put)
         for i in range(0, len(puts), self.conf.batch_size):
-            result = self.executor.call(lambda: self._client._put_rows(table_name=self.name,
-                                                                       puts=puts[i: i + self.conf.batch_size]))
+            result = self._client._put_rows(table_name=self.name, puts=puts[i: i + self.conf.batch_size])
             if not result:
                 logger.error("An error occurs at index {}, the Put requests after {} (inclusive) failed.".format(i, i))
                 return False
@@ -91,7 +90,7 @@ class Table(object):
 
         """
         type_check(get, Get)
-        result = self.executor.call(lambda: self._client._get_row(table_name=self.name, get=get))
+        result = self._client._get_row(table_name=self.name, get=get)
         # if result is False, that means the operation failed after retry N times.
         # if result is [], that means there is no matched cell in hbase.
         if not result:
@@ -118,9 +117,7 @@ class Table(object):
             type_check(get, Get)
         result_list = []
         for i in range(0, len(gets), self.conf.batch_size):
-            result = self.executor.call(lambda: self._client._get_rows(
-                                        table_name=self.name,
-                                        gets=gets[i: i + self.conf.batch_size]))
+            result = self._client._get_rows(table_name=self.name, gets=gets[i: i + self.conf.batch_size])
             # if result == False, it shows that the operation failed.
             # The task should stop and return the successful part.
             if result is False:
@@ -143,7 +140,7 @@ class Table(object):
 
         """
         type_check(scan, Scan)
-        return self._results_format(self.executor.call(lambda: self._client._scan(table_name=self.name, scan=scan)))
+        return self._results_format(self._client._scan(table_name=self.name, scan=scan))
 
     def delete(self, delete):
         # type: (Delete) -> bool
@@ -156,7 +153,7 @@ class Table(object):
 
         """
         type_check(delete, Delete)
-        return self.executor.call(lambda: self._client._delete_row(table_name=self.name, delete=delete))
+        return self._client._delete_row(table_name=self.name, delete=delete)
 
     def delete_batch(self, batch):
         # type: (List[Delete]) -> bool
@@ -174,9 +171,8 @@ class Table(object):
         for delete in batch:
             type_check(delete, Delete)
         for i in range(0, len(batch), self.conf.batch_size):
-            if not self.executor.call(lambda: self._client._delete_batch(
-                                      table_name=self.name,
-                                      deletes=batch[i: i + self.conf.batch_size])):
+            if not self._client._delete_batch(table_name=self.name,
+                                              deletes=batch[i: i + self.conf.batch_size]):
                 logger.error("Delete_batch failed at index {}, the delete requests after {} (inclusive) are not sent.".format(i, i))
                 return False
         return True
