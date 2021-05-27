@@ -15,11 +15,15 @@ limitations under the License.
 """
 from thbase.hbase import THBaseService
 from thbase.hbase.ttypes import TTableDescriptor
+from thbase.hbase.ttypes import TColumnFamilyDescriptor
 from thbase.clientbase import ClientBase
 from thbase.thrift2.table import Table
 from thbase.util.executor import Executor
-from thbase.util.bytes import to_bytes
+from thbase.util.bytes import to_str
+from thbase.util.builder import ColumnDescriptorBuilder
+from thbase.util.builder import TableDescriptorBuilder
 from thbase.util import type_check
+from thbase.util import check_none
 from thbase.util import str_to_tablename
 import logging
 
@@ -216,5 +220,98 @@ class Client(ClientBase):
         return self.executor.call(lambda: self.client.truncateTable(tn, preserve_splits))
 
     def is_enabled(self, table_name):
+        """
+        Check if the table is enabled.
+        Args:
+            table_name:
+
+        Returns:
+
+        """
         tn = str_to_tablename(table_name)
         return self.executor.call(lambda: self.client.isTableEnabled(tn))
+
+    def get_tableDescriptor(self, table_name):
+        """
+
+        Args:
+            table_name:
+
+        Returns:
+
+        """
+        tn = str_to_tablename(table_name)
+        return self.executor.call(lambda: self.client.getTableDescriptor(tn))
+
+    def get_columnDescriptor(self, table_name, cf):
+        """
+        Return a column descriptor for specific table with the given cf name.
+        Args:
+            table_name:
+            cf:
+
+        Returns:
+
+        """
+        type_check(cf, str)
+        td = self.get_tableDescriptor(table_name)
+        check_none(td, "Unknown table.")
+        for col in td.columns:
+            if to_str(col.name) == cf:
+                return col
+        raise RuntimeError("The table does not contain a column family with name {}".format(cf))
+
+    def get_columnBuilder(self, table_name, cf):
+        """
+        Acquire a column descriptor of a specific cf.
+        Args:
+            table_name:
+            cf:
+
+        Returns:
+
+        """
+        desc = self.get_columnDescriptor(table_name, cf)
+        builder = ColumnDescriptorBuilder('')
+        builder.copy_from_exist(desc)
+        return builder
+
+    def modify_columnFamily(self, table_name, desc):
+        """
+
+        Args:
+            table_name:
+            desc:
+
+        Returns:
+
+        """
+        type_check(desc, TColumnFamilyDescriptor)
+        tn = str_to_tablename(table_name)
+        return self.executor.call(lambda: self.client.modifyColumnFamily(tn, desc))
+
+    def get_tableBuilder(self, table_name):
+        """
+
+        Args:
+            table_name:
+
+        Returns:
+
+        """
+        builder = TableDescriptorBuilder(table_name)
+        desc = self.get_tableDescriptor(table_name)
+        builder.copy_from_exist(desc)
+        return builder
+
+    def modify_table(self, table_descriptor):
+        """
+
+        Args:
+            table_descriptor:
+
+        Returns:
+
+        """
+        type_check(table_descriptor, TTableDescriptor)
+        return self.executor.call(lambda: self.client.modifyTable(table_descriptor))

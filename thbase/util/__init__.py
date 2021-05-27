@@ -18,6 +18,8 @@ from thbase.util.bytes import to_bytes
 
 __all__ = ['executor', 'handlers', 'type_check', 'check_none', 'str_to_tablename']
 
+DELIMITER = ':'
+
 
 def type_check(var, t):
     if not isinstance(var, t):
@@ -32,11 +34,16 @@ def check_none(var, ms):
 def str_to_tablename(name):
     check_none(name, "")
     type_check(name, str)
-    names = name.split(':')
+    names = name.split(DELIMITER)
     if len(names) == 1:
         return TTableName(ns=None, qualifier=to_bytes(names[0]))
     elif len(names) == 2:
         return TTableName(ns=to_bytes(names[0]), qualifier=to_bytes(names[1]))
     else:
         raise RuntimeError("Get table name with wrong format.")
+
+
+def tablename_to_str(table):
+    type_check(table, TTableName)
+    name = DELIMITER.join()
 

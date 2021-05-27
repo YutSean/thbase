@@ -301,3 +301,28 @@ class ClientBase(object):
 
         """
         pass
+
+    @abc.abstractmethod
+    def get_tableDescriptor(self, table_name):
+        """
+        Get a TTableDescriptor of a specific table.
+        Args:
+            table_name:
+
+        Returns:
+
+        """
+        pass
+
+    @abc.abstractmethod
+    def modify_columnFamily(self, table_name, desc):
+        """
+        Modify the attribute of a column family.
+        Args:
+            table_name:
+            desc:
+
+        Returns:
+
+        """
+        pass
