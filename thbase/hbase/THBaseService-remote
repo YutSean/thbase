@@ -73,6 +73,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('  TThriftServerType getThriftServerType()')
     print('   getSlowLogResponses( serverNames, TLogQueryFilter logQueryFilter)')
     print('   clearSlowLogResponses( serverNames)')
+    print('  bool performPermissions(TAccessControlEntity info)')
     print('')
     sys.exit(0)
 
@@ -445,6 +446,12 @@ elif cmd == 'clearSlowLogResponses':
         print('clearSlowLogResponses requires 1 args')
         sys.exit(1)
     pp.pprint(client.clearSlowLogResponses(eval(args[0]),))
+
+elif cmd == 'performPermissions':
+    if len(args) != 1:
+        print('performPermissions requires 1 args')
+        sys.exit(1)
+    pp.pprint(client.performPermissions(eval(args[0]),))
 
 else:
     print('Unrecognized method %s' % cmd)

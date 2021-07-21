@@ -262,6 +262,36 @@ class TKeepDeletedCells(object):
     }
 
 
+class TPermissionScope(object):
+    TABLE = 0
+    NAMESPACE = 1
+
+    _VALUES_TO_NAMES = {
+        0: "TABLE",
+        1: "NAMESPACE",
+    }
+
+    _NAMES_TO_VALUES = {
+        "TABLE": 0,
+        "NAMESPACE": 1,
+    }
+
+
+class TPermissionOps(object):
+    GRANT = 0
+    REVOKE = 1
+
+    _VALUES_TO_NAMES = {
+        0: "GRANT",
+        1: "REVOKE",
+    }
+
+    _NAMES_TO_VALUES = {
+        "GRANT": 0,
+        "REVOKE": 1,
+    }
+
+
 class TLogType(object):
     SLOW_LOG = 1
     LARGE_LOG = 2
@@ -2807,6 +2837,129 @@ class TColumnFamilyDescriptor(object):
         return not (self == other)
 
 
+class TAccessControlEntity(object):
+    """
+    TAccessControlEntity
+
+    Attributes:
+     - username
+     - scope
+     - op
+     - actions
+     - tableName
+     - nsName
+
+    """
+
+
+    def __init__(self, username=None, scope=None, op=None, actions=None, tableName=None, nsName=None,):
+        self.username = username
+        self.scope = scope
+        self.op = op
+        self.actions = actions
+        self.tableName = tableName
+        self.nsName = nsName
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.username = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.I32:
+                    self.scope = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.I32:
+                    self.op = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRING:
+                    self.actions = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 5:
+                if ftype == TType.STRUCT:
+                    self.tableName = TTableName()
+                    self.tableName.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 6:
+                if ftype == TType.STRING:
+                    self.nsName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('TAccessControlEntity')
+        if self.username is not None:
+            oprot.writeFieldBegin('username', TType.STRING, 1)
+            oprot.writeString(self.username.encode('utf-8') if sys.version_info[0] == 2 else self.username)
+            oprot.writeFieldEnd()
+        if self.scope is not None:
+            oprot.writeFieldBegin('scope', TType.I32, 2)
+            oprot.writeI32(self.scope)
+            oprot.writeFieldEnd()
+        if self.op is not None:
+            oprot.writeFieldBegin('op', TType.I32, 3)
+            oprot.writeI32(self.op)
+            oprot.writeFieldEnd()
+        if self.actions is not None:
+            oprot.writeFieldBegin('actions', TType.STRING, 4)
+            oprot.writeString(self.actions.encode('utf-8') if sys.version_info[0] == 2 else self.actions)
+            oprot.writeFieldEnd()
+        if self.tableName is not None:
+            oprot.writeFieldBegin('tableName', TType.STRUCT, 5)
+            self.tableName.write(oprot)
+            oprot.writeFieldEnd()
+        if self.nsName is not None:
+            oprot.writeFieldBegin('nsName', TType.STRING, 6)
+            oprot.writeString(self.nsName.encode('utf-8') if sys.version_info[0] == 2 else self.nsName)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.username is None:
+            raise TProtocolException(message='Required field username is unset!')
+        if self.scope is None:
+            raise TProtocolException(message='Required field scope is unset!')
+        if self.op is None:
+            raise TProtocolException(message='Required field op is unset!')
+        if self.actions is None:
+            raise TProtocolException(message='Required field actions is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
 class TTableDescriptor(object):
     """
     Thrift wrapper around
@@ -3693,6 +3846,16 @@ TColumnFamilyDescriptor.thrift_spec = (
     (18, TType.BOOL, 'compressTags', None, None, ),  # 18
     (19, TType.BOOL, 'evictBlocksOnClose', None, None, ),  # 19
     (20, TType.BOOL, 'inMemory', None, None, ),  # 20
+)
+all_structs.append(TAccessControlEntity)
+TAccessControlEntity.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'username', 'UTF8', None, ),  # 1
+    (2, TType.I32, 'scope', None, None, ),  # 2
+    (3, TType.I32, 'op', None, None, ),  # 3
+    (4, TType.STRING, 'actions', 'UTF8', None, ),  # 4
+    (5, TType.STRUCT, 'tableName', [TTableName, None], None, ),  # 5
+    (6, TType.STRING, 'nsName', 'UTF8', None, ),  # 6
 )
 all_structs.append(TTableDescriptor)
 TTableDescriptor.thrift_spec = (

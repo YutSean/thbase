@@ -434,6 +434,29 @@ struct TColumnFamilyDescriptor {
 
 }
 
+
+enum TPermissionScope {
+  TABLE = 0,
+  NAMESPACE = 1
+}
+
+enum TPermissionOps {
+  GRANT = 0,
+  REVOKE = 1
+}
+
+/**
+ * TAccessControlEntity
+ */
+struct TAccessControlEntity {
+ 1: required string username
+ 2: required TPermissionScope scope
+ 3: required TPermissionOps op
+ 4: required string actions
+ 5: optional TTableName tableName
+ 6: optional string nsName
+}
+
 /**
  * Thrift wrapper around
  * org.apache.hadoop.hbase.client.TableDescriptor
@@ -1127,4 +1150,7 @@ service THBaseService {
     1: set<TServerName> serverNames
   ) throws (1: TIOError io)
 
+  bool performPermissions(
+  1: required TAccessControlEntity info
+  ) throws (1: TIOError io)
 }

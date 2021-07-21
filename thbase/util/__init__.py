@@ -1,6 +1,4 @@
 """
-Copyright 2021 Yutong Sean
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -36,7 +34,7 @@ def str_to_tablename(name):
     type_check(name, str)
     names = name.split(DELIMITER)
     if len(names) == 1:
-        return TTableName(ns=None, qualifier=to_bytes(names[0]))
+        return TTableName(ns=to_bytes('default'), qualifier=to_bytes(names[0]))
     elif len(names) == 2:
         return TTableName(ns=to_bytes(names[0]), qualifier=to_bytes(names[1]))
     else:

@@ -1,6 +1,4 @@
 """
-Copyright 2021 Yutong Sean
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -67,8 +65,7 @@ class ExceptionHandler(Observer):
                                                    " Client will resend the request.")
                         return True
                     else:
-                        logger.error(error_str + " The error cannot be solved by resending the request,"
-                                                 " client will shutdown.")
+                        logger.error(error_str + " The error cannot be solved by resend the request, client will shutdown.")
                         raise value
                 except AttributeError:
                     raise AttributeError("The IOError does not contain the canRetry mark. The error will be raised. "
