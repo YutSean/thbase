@@ -213,7 +213,7 @@ class Client(ClientBase):
             preserve_splits:
 
         Returns:
-
+        
         """
         tn = str_to_tablename(table_name)
         return self.executor.call(lambda: self.client.truncateTable(tn, preserve_splits))
