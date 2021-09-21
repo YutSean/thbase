@@ -1150,7 +1150,26 @@ service THBaseService {
     1: set<TServerName> serverNames
   ) throws (1: TIOError io)
 
-  bool performPermissions(
-  1: required TAccessControlEntity info
+  /**
+    *  Grant permissions in table or namespace level.
+    */
+  bool grant(
+      1: required TAccessControlEntity info
   ) throws (1: TIOError io)
+
+  /**
+    *  Revoke permissions in table or namespace level.
+    */
+  bool revoke(
+      1: required TAccessControlEntity info
+  ) throws (1: TIOError io)
+
+ /**
+  *  Get the user permissions in table or namespace level.
+  *  Return a string representing the permissions.
+  */
+  map<string, string> getUserPermission(
+    1: string domainName
+    2: TPermissionScope scope
+  )
 }

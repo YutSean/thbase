@@ -653,10 +653,34 @@ class Iface(object):
         """
         pass
 
-    def performPermissions(self, info):
+    def grant(self, info):
         """
+        Grant permissions in table or namespace level.
+
         Parameters:
          - info
+
+        """
+        pass
+
+    def revoke(self, info):
+        """
+        Revoke permissions in table or namespace level.
+
+        Parameters:
+         - info
+
+        """
+        pass
+
+    def getUserPermission(self, domainName, scope):
+        """
+        Get the user permissions in table or namespace level.
+        Return a string representing the permissions.
+
+        Parameters:
+         - domainName
+         - scope
 
         """
         pass
@@ -2584,24 +2608,26 @@ class Client(Iface):
             raise result.io
         raise TApplicationException(TApplicationException.MISSING_RESULT, "clearSlowLogResponses failed: unknown result")
 
-    def performPermissions(self, info):
+    def grant(self, info):
         """
+        Grant permissions in table or namespace level.
+
         Parameters:
          - info
 
         """
-        self.send_performPermissions(info)
-        return self.recv_performPermissions()
+        self.send_grant(info)
+        return self.recv_grant()
 
-    def send_performPermissions(self, info):
-        self._oprot.writeMessageBegin('performPermissions', TMessageType.CALL, self._seqid)
-        args = performPermissions_args()
+    def send_grant(self, info):
+        self._oprot.writeMessageBegin('grant', TMessageType.CALL, self._seqid)
+        args = grant_args()
         args.info = info
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_performPermissions(self):
+    def recv_grant(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -2609,14 +2635,87 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = performPermissions_result()
+        result = grant_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
         if result.io is not None:
             raise result.io
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "performPermissions failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "grant failed: unknown result")
+
+    def revoke(self, info):
+        """
+        Revoke permissions in table or namespace level.
+
+        Parameters:
+         - info
+
+        """
+        self.send_revoke(info)
+        return self.recv_revoke()
+
+    def send_revoke(self, info):
+        self._oprot.writeMessageBegin('revoke', TMessageType.CALL, self._seqid)
+        args = revoke_args()
+        args.info = info
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_revoke(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = revoke_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.io is not None:
+            raise result.io
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "revoke failed: unknown result")
+
+    def getUserPermission(self, domainName, scope):
+        """
+        Get the user permissions in table or namespace level.
+        Return a string representing the permissions.
+
+        Parameters:
+         - domainName
+         - scope
+
+        """
+        self.send_getUserPermission(domainName, scope)
+        return self.recv_getUserPermission()
+
+    def send_getUserPermission(self, domainName, scope):
+        self._oprot.writeMessageBegin('getUserPermission', TMessageType.CALL, self._seqid)
+        args = getUserPermission_args()
+        args.domainName = domainName
+        args.scope = scope
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_getUserPermission(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = getUserPermission_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getUserPermission failed: unknown result")
 
 
 class Processor(Iface, TProcessor):
@@ -2672,7 +2771,9 @@ class Processor(Iface, TProcessor):
         self._processMap["getThriftServerType"] = Processor.process_getThriftServerType
         self._processMap["getSlowLogResponses"] = Processor.process_getSlowLogResponses
         self._processMap["clearSlowLogResponses"] = Processor.process_clearSlowLogResponses
-        self._processMap["performPermissions"] = Processor.process_performPermissions
+        self._processMap["grant"] = Processor.process_grant
+        self._processMap["revoke"] = Processor.process_revoke
+        self._processMap["getUserPermission"] = Processor.process_getUserPermission
         self._on_message_begin = None
 
     def on_message_begin(self, func):
@@ -3972,13 +4073,13 @@ class Processor(Iface, TProcessor):
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_performPermissions(self, seqid, iprot, oprot):
-        args = performPermissions_args()
+    def process_grant(self, seqid, iprot, oprot):
+        args = grant_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = performPermissions_result()
+        result = grant_result()
         try:
-            result.success = self._handler.performPermissions(args.info)
+            result.success = self._handler.grant(args.info)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -3993,7 +4094,56 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("performPermissions", msg_type, seqid)
+        oprot.writeMessageBegin("grant", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_revoke(self, seqid, iprot, oprot):
+        args = revoke_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = revoke_result()
+        try:
+            result.success = self._handler.revoke(args.info)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TIOError as io:
+            msg_type = TMessageType.REPLY
+            result.io = io
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("revoke", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_getUserPermission(self, seqid, iprot, oprot):
+        args = getUserPermission_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = getUserPermission_result()
+        try:
+            result.success = self._handler.getUserPermission(args.domainName, args.scope)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("getUserPermission", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -11342,7 +11492,7 @@ clearSlowLogResponses_result.thrift_spec = (
 )
 
 
-class performPermissions_args(object):
+class grant_args(object):
     """
     Attributes:
      - info
@@ -11377,7 +11527,7 @@ class performPermissions_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('performPermissions_args')
+        oprot.writeStructBegin('grant_args')
         if self.info is not None:
             oprot.writeFieldBegin('info', TType.STRUCT, 1)
             self.info.write(oprot)
@@ -11400,14 +11550,14 @@ class performPermissions_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(performPermissions_args)
-performPermissions_args.thrift_spec = (
+all_structs.append(grant_args)
+grant_args.thrift_spec = (
     None,  # 0
     (1, TType.STRUCT, 'info', [TAccessControlEntity, None], None, ),  # 1
 )
 
 
-class performPermissions_result(object):
+class grant_result(object):
     """
     Attributes:
      - success
@@ -11449,7 +11599,7 @@ class performPermissions_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('performPermissions_result')
+        oprot.writeStructBegin('grant_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.BOOL, 0)
             oprot.writeBool(self.success)
@@ -11474,10 +11624,294 @@ class performPermissions_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(performPermissions_result)
-performPermissions_result.thrift_spec = (
+all_structs.append(grant_result)
+grant_result.thrift_spec = (
     (0, TType.BOOL, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class revoke_args(object):
+    """
+    Attributes:
+     - info
+
+    """
+
+
+    def __init__(self, info=None,):
+        self.info = info
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.info = TAccessControlEntity()
+                    self.info.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('revoke_args')
+        if self.info is not None:
+            oprot.writeFieldBegin('info', TType.STRUCT, 1)
+            self.info.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.info is None:
+            raise TProtocolException(message='Required field info is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(revoke_args)
+revoke_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'info', [TAccessControlEntity, None], None, ),  # 1
+)
+
+
+class revoke_result(object):
+    """
+    Attributes:
+     - success
+     - io
+
+    """
+
+
+    def __init__(self, success=None, io=None,):
+        self.success = success
+        self.io = io
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.io = TIOError()
+                    self.io.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('revoke_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
+            oprot.writeFieldEnd()
+        if self.io is not None:
+            oprot.writeFieldBegin('io', TType.STRUCT, 1)
+            self.io.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(revoke_result)
+revoke_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'io', [TIOError, None], None, ),  # 1
+)
+
+
+class getUserPermission_args(object):
+    """
+    Attributes:
+     - domainName
+     - scope
+
+    """
+
+
+    def __init__(self, domainName=None, scope=None,):
+        self.domainName = domainName
+        self.scope = scope
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.domainName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.I32:
+                    self.scope = iprot.readI32()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getUserPermission_args')
+        if self.domainName is not None:
+            oprot.writeFieldBegin('domainName', TType.STRING, 1)
+            oprot.writeString(self.domainName.encode('utf-8') if sys.version_info[0] == 2 else self.domainName)
+            oprot.writeFieldEnd()
+        if self.scope is not None:
+            oprot.writeFieldBegin('scope', TType.I32, 2)
+            oprot.writeI32(self.scope)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getUserPermission_args)
+getUserPermission_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'domainName', 'UTF8', None, ),  # 1
+    (2, TType.I32, 'scope', None, None, ),  # 2
+)
+
+
+class getUserPermission_result(object):
+    """
+    Attributes:
+     - success
+
+    """
+
+
+    def __init__(self, success=None,):
+        self.success = success
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.MAP:
+                    self.success = {}
+                    (_ktype338, _vtype339, _size337) = iprot.readMapBegin()
+                    for _i341 in range(_size337):
+                        _key342 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        _val343 = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                        self.success[_key342] = _val343
+                    iprot.readMapEnd()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('getUserPermission_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.MAP, 0)
+            oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.success))
+            for kiter344, viter345 in self.success.items():
+                oprot.writeString(kiter344.encode('utf-8') if sys.version_info[0] == 2 else kiter344)
+                oprot.writeString(viter345.encode('utf-8') if sys.version_info[0] == 2 else viter345)
+            oprot.writeMapEnd()
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(getUserPermission_result)
+getUserPermission_result.thrift_spec = (
+    (0, TType.MAP, 'success', (TType.STRING, 'UTF8', TType.STRING, 'UTF8', False), None, ),  # 0
 )
 fix_spec(all_structs)
 del all_structs
