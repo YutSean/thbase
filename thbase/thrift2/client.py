@@ -12,7 +12,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 from thbase.hbase import THBaseService
-from thbase.hbase.ttypes import TTableDescriptor
+from thbase.hbase.ttypes import TTableDescriptor, TPermissionScope
 from thbase.hbase.ttypes import TColumnFamilyDescriptor
 from thbase.hbase.ttypes import TAccessControlEntity
 from thbase.clientbase import ClientBase
@@ -315,7 +315,7 @@ class Client(ClientBase):
         type_check(table_descriptor, TTableDescriptor)
         return self.executor.call(lambda: self.client.modifyTable(table_descriptor))
 
-    def perform_permissions(self, info):
+    def grant(self, info):
         """
 
         Args:
@@ -325,4 +325,30 @@ class Client(ClientBase):
 
         """
         type_check(info, TAccessControlEntity)
-        return self.executor.call(lambda: self.client.performPermissions(info))
+        return self.executor.call(lambda: self.client.grant(info))
+
+    def revoke(self, info):
+        """
+
+        Args:
+            info:
+
+        Returns:
+
+        """
+        type_check(info, TAccessControlEntity)
+        return self.executor.call(lambda: self.client.revoke(info))
+
+    def get_user_permissions(self, domain_name):
+        """
+
+        Args:
+            domain_name:
+            scope:
+
+        Returns:
+
+        """
+        type_check(domain_name, str)
+        scope = TPermissionScope.TABLE if domain_name[0] != '@' else TPermissionScope.NAMESPACE
+        return self.executor.call(lambda: self.client.getUserPermission(domain_name, scope))

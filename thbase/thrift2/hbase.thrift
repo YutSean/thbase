@@ -440,21 +440,15 @@ enum TPermissionScope {
   NAMESPACE = 1
 }
 
-enum TPermissionOps {
-  GRANT = 0,
-  REVOKE = 1
-}
-
 /**
  * TAccessControlEntity
  */
 struct TAccessControlEntity {
  1: required string username
  2: required TPermissionScope scope
- 3: required TPermissionOps op
- 4: required string actions
- 5: optional TTableName tableName
- 6: optional string nsName
+ 3: required string actions
+ 4: optional TTableName tableName
+ 5: optional string nsName
 }
 
 /**
@@ -1150,7 +1144,26 @@ service THBaseService {
     1: set<TServerName> serverNames
   ) throws (1: TIOError io)
 
-  bool performPermissions(
-  1: required TAccessControlEntity info
+  /**
+    *  Grant permissions in table or namespace level.
+    */
+  bool grant(
+      1: required TAccessControlEntity info
   ) throws (1: TIOError io)
+
+  /**
+    *  Revoke permissions in table or namespace level.
+    */
+  bool revoke(
+      1: required TAccessControlEntity info
+  ) throws (1: TIOError io)
+
+ /**
+  *  Get the user permissions in table or namespace level.
+  *  Return a string representing the permissions.
+  */
+  map<string, string> getUserPermission(
+    1: string domainName
+    2: TPermissionScope scope
+  )
 }
