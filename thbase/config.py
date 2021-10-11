@@ -44,7 +44,7 @@ class ClientConfig(object):
                  use_ssl=USE_SSL_DEFAULT,  # type: bool
                  batch_size=BATCH_SIZE_DEFAULT,  # type: int
                  use_http=USE_HTTP_DEFAULT,  # type: bool
-                 authentication=None,
+                 authentication=None,  # type: LoginEntry
                  keep_alive=False,
                  ):
         """
