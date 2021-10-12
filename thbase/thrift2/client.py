@@ -354,3 +354,16 @@ class Client(ClientBase):
         type_check(domain_name, str)
         scope = TPermissionScope.TABLE if domain_name[0] != '@' else TPermissionScope.NAMESPACE
         return self.executor.call(lambda: self.client.getUserPermission(domain_name, scope))
+
+    def table_exists(self, table_name):
+        """
+        Check if a table exists.
+        Args:
+            table_name: type: TTableName
+
+        Returns: True if the table exists, else False.
+
+        """
+        type_check(table_name, str)
+        tn = str_to_tablename(table_name)
+        return self.executor.call(lambda: self.client.tableExists(tn))

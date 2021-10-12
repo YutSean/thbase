@@ -75,7 +75,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('   clearSlowLogResponses( serverNames)')
     print('  bool grant(TAccessControlEntity info)')
     print('  bool revoke(TAccessControlEntity info)')
-    print('   getUserPermission(string domainName, TPermissionScope scope)')
+    print('   getUserPermission(string tableOrNsName, TPermissionScope scope)')
     print('')
     sys.exit(0)
 

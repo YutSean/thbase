@@ -50,13 +50,15 @@ class Connection(object):
                  retry_times,
                  use_ssl,
                  use_http,
-                 authentication):
+                 authentication,
+                 keep_alive=False):
 
         self.host = host
         self.port = port
         self.use_ssl = use_ssl
         self.use_http = use_http
         self.authentication = authentication
+        self.keep_alive = keep_alive
 
         self._transport_type = THRIFT_TRANSPORTS[transport_type]
         self._protocol_type = THRIFT_PROTOCOLS[protocol_type]
@@ -81,16 +83,17 @@ class Connection(object):
 
         if self.use_ssl:
             from thrift.transport.TSSLSocket import TSSLSocket
-            socket = TSSLSocket(host=self.host, port=self.port, validate=False)
+            socket = TSSLSocket(host=self.host, port=self.port, validate=False, socket_keepalive=self.keep_alive)
         else:
-            socket = TSocket(host=self.host, port=self.port)
+            socket = TSocket(host=self.host, port=self.port, socket_keepalive=self.keep_alive)
 
         if self.authentication:
             socket = TSaslClientTransport(socket, host=self.host,
                                           service=self.authentication.service,
                                           mechanism=self.authentication.mechanism,
                                           username=self.authentication.username,
-                                          password=self.authentication.password)
+                                          password=self.authentication.password,
+                                          )
 
         self.transport = self._transport_type(socket)
         self.protocol = self._protocol_type(self.transport)
