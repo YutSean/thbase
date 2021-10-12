@@ -44,7 +44,8 @@ class ClientConfig(object):
                  use_ssl=USE_SSL_DEFAULT,  # type: bool
                  batch_size=BATCH_SIZE_DEFAULT,  # type: int
                  use_http=USE_HTTP_DEFAULT,  # type: bool
-                 authentication=None
+                 authentication=None,  # type: LoginEntry
+                 keep_alive=False,
                  ):
         """
         Basic client configuration.
@@ -63,6 +64,7 @@ class ClientConfig(object):
             batch_size: the max size of the batch when using batch operation in a Table object.
             Batch size can be customized with given setter method.
             use_http: if the client use http as the transport but not TCP.
+            keep_alive: if the client keep the basic TCP socket alive.
         """
         self._host = thrift_host
         self._port = port
@@ -76,6 +78,7 @@ class ClientConfig(object):
         self._use_ssl = use_ssl
         self._use_http = use_http
         self._authentication = authentication
+        self._keep_alive = keep_alive
         self._parameter_check()
 
     def _parameter_check(self):
@@ -147,3 +150,7 @@ class ClientConfig(object):
     @property
     def authentication(self):
         return self._authentication
+
+    @property
+    def keep_alive(self):
+        return self._keep_alive
