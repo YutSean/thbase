@@ -45,7 +45,8 @@ class ClientBase(object):
                                      retry_times=self.conf.retry_times,
                                      use_ssl=self.conf.use_ssl,
                                      use_http=self.conf.use_http,
-                                     authentication=conf.authentication,
+                                     authentication=self.conf.authentication,
+                                     keep_alive=self.conf.keep_alive,
                                      )
         self._observers = set()
         self.attach(ExceptionHandler(self))

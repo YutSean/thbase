@@ -1,3 +1,5 @@
 setup.py
 main.py
 .idea/
+dist/
+thbase.egg-info/
