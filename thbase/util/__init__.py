@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 from thbase.hbase.ttypes import TTableName
-from thbase.util.bytes import to_bytes
+from thbase.util.bytes import to_bytes, to_str
 
 __all__ = ['executor', 'handlers', 'type_check', 'check_none', 'str_to_tablename']
 
@@ -43,7 +43,6 @@ def str_to_tablename(name):
         raise RuntimeError("Get table name with wrong format.")
 
 
-def tablename_to_str(table):
-    type_check(table, TTableName)
-    name = DELIMITER.join()
-
+def tablename_to_str(table_name):
+    type_check(table_name, TTableName)
+    return DELIMITER.join([to_str(table_name.ns), to_str(table_name.qualifier)])
