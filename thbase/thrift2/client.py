@@ -1,6 +1,4 @@
 """
-Copyright 2021 Yutong Sean
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -215,7 +213,7 @@ class Client(ClientBase):
             preserve_splits:
 
         Returns:
-
+        
         """
         tn = str_to_tablename(table_name)
         return self.executor.call(lambda: self.client.truncateTable(tn, preserve_splits))

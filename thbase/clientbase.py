@@ -1,6 +1,4 @@
 """
-Copyright 2021 Yutong Sean
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -47,7 +45,8 @@ class ClientBase(object):
                                      retry_times=self.conf.retry_times,
                                      use_ssl=self.conf.use_ssl,
                                      use_http=self.conf.use_http,
-                                     authentication=conf.authentication,
+                                     authentication=self.conf.authentication,
+                                     keep_alive=self.conf.keep_alive,
                                      )
         self._observers = set()
         self.attach(ExceptionHandler(self))
