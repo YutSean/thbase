@@ -325,3 +325,15 @@ class ClientBase(object):
 
         """
         pass
+
+    @abc.abstractmethod
+    def table_exists(self, table_name):
+        """
+
+        Args:
+            table_name:
+
+        Returns:
+
+        """
+        pass
