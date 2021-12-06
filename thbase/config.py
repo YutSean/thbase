@@ -91,11 +91,11 @@ class ClientConfig(object):
         if not isinstance(self.batch_size, int) or self.batch_size < 1:
             raise ValueError("Batch size must be a positive integer.")
         if not isinstance(self.use_ssl, bool):
-            raise ValueError("parameter use_ssl must be a bool value.")
+            raise ValueError("Parameter use_ssl must be a bool value.")
         if not isinstance(self.use_http, bool):
-            raise ValueError("parameter use_http must be a bool value.")
-        if not (isinstance(self._authentication, LoginEntry) or None):
-            raise ValueError("parameter authentication must be a LoginEntry object or None.")
+            raise ValueError("Parameter use_http must be a bool value.")
+        if self._authentication is not None and not isinstance(self._authentication, LoginEntry):
+            raise ValueError("Parameter authentication must be a LoginEntry object or None.")
         if self._transport_type not in TransportType:
             raise ValueError("Invalid type of transport {}. Use one of the specific enum type {}."
                              .format(type(self._transport_type), ', '.join([str(a) for a in TransportType])))
