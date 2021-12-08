@@ -440,21 +440,15 @@ enum TPermissionScope {
   NAMESPACE = 1
 }
 
-enum TPermissionOps {
-  GRANT = 0,
-  REVOKE = 1
-}
-
 /**
  * TAccessControlEntity
  */
 struct TAccessControlEntity {
  1: required string username
  2: required TPermissionScope scope
- 3: required TPermissionOps op
- 4: required string actions
- 5: optional TTableName tableName
- 6: optional string nsName
+ 3: required string actions
+ 4: optional TTableName tableName
+ 5: optional string nsName
 }
 
 /**

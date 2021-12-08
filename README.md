@@ -23,7 +23,7 @@ if __name__ == '__main__':
                         batch_size=10,
                         use_http=True)
     client = Client(conf)
-    if client.open_connection():
+    if client.open_connection(): # if use SASL client, this value will always be None, so that should not use if here.
         table = client.get_table("your_table_name")
         # example for a single operation
         p = Put(row="your_row_key",
@@ -70,7 +70,7 @@ def demo_func(conf):
     client = Client(conf)
  
     # Open the connection
-    if client.open_connection():
+    if client.open_connection(): # if use SASL client, this value will always be None, so that should not use if here.
         
         # get a table object with given table name
         table = client.get_table("your_table_name")

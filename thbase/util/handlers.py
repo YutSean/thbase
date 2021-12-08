@@ -1,6 +1,4 @@
 """
-Copyright 2021 Yutong Sean
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -72,6 +70,7 @@ class ExceptionHandler(Observer):
                 except AttributeError:
                     raise AttributeError("The IOError does not contain the canRetry mark. The error will be raised. "
                                          "Please check if the client version is too old.")
+
             if isinstance(value, TTransportException):
                 if value.type == TTransportException.NOT_OPEN or value.type == TTransportException.TIMED_OUT:
                     logger.warning("A transport error occurs, the message is: {}".format(value.message))
