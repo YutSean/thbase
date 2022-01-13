@@ -1163,7 +1163,7 @@ service THBaseService {
   *  Return a string representing the permissions.
   */
   map<string, string> getUserPermission(
-    1: string domainName
+    1: string tableOrNsName
     2: TPermissionScope scope
   )
 }

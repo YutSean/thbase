@@ -673,13 +673,13 @@ class Iface(object):
         """
         pass
 
-    def getUserPermission(self, domainName, scope):
+    def getUserPermission(self, tableOrNsName, scope):
         """
         Get the user permissions in table or namespace level.
         Return a string representing the permissions.
 
         Parameters:
-         - domainName
+         - tableOrNsName
          - scope
 
         """
@@ -2680,23 +2680,23 @@ class Client(Iface):
             raise result.io
         raise TApplicationException(TApplicationException.MISSING_RESULT, "revoke failed: unknown result")
 
-    def getUserPermission(self, domainName, scope):
+    def getUserPermission(self, tableOrNsName, scope):
         """
         Get the user permissions in table or namespace level.
         Return a string representing the permissions.
 
         Parameters:
-         - domainName
+         - tableOrNsName
          - scope
 
         """
-        self.send_getUserPermission(domainName, scope)
+        self.send_getUserPermission(tableOrNsName, scope)
         return self.recv_getUserPermission()
 
-    def send_getUserPermission(self, domainName, scope):
+    def send_getUserPermission(self, tableOrNsName, scope):
         self._oprot.writeMessageBegin('getUserPermission', TMessageType.CALL, self._seqid)
         args = getUserPermission_args()
-        args.domainName = domainName
+        args.tableOrNsName = tableOrNsName
         args.scope = scope
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
@@ -4131,7 +4131,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = getUserPermission_result()
         try:
-            result.success = self._handler.getUserPermission(args.domainName, args.scope)
+            result.success = self._handler.getUserPermission(args.tableOrNsName, args.scope)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -11773,14 +11773,14 @@ revoke_result.thrift_spec = (
 class getUserPermission_args(object):
     """
     Attributes:
-     - domainName
+     - tableOrNsName
      - scope
 
     """
 
 
-    def __init__(self, domainName=None, scope=None,):
-        self.domainName = domainName
+    def __init__(self, tableOrNsName=None, scope=None,):
+        self.tableOrNsName = tableOrNsName
         self.scope = scope
 
     def read(self, iprot):
@@ -11794,7 +11794,7 @@ class getUserPermission_args(object):
                 break
             if fid == 1:
                 if ftype == TType.STRING:
-                    self.domainName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.tableOrNsName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
@@ -11812,9 +11812,9 @@ class getUserPermission_args(object):
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
         oprot.writeStructBegin('getUserPermission_args')
-        if self.domainName is not None:
-            oprot.writeFieldBegin('domainName', TType.STRING, 1)
-            oprot.writeString(self.domainName.encode('utf-8') if sys.version_info[0] == 2 else self.domainName)
+        if self.tableOrNsName is not None:
+            oprot.writeFieldBegin('tableOrNsName', TType.STRING, 1)
+            oprot.writeString(self.tableOrNsName.encode('utf-8') if sys.version_info[0] == 2 else self.tableOrNsName)
             oprot.writeFieldEnd()
         if self.scope is not None:
             oprot.writeFieldBegin('scope', TType.I32, 2)
@@ -11839,7 +11839,7 @@ class getUserPermission_args(object):
 all_structs.append(getUserPermission_args)
 getUserPermission_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRING, 'domainName', 'UTF8', None, ),  # 1
+    (1, TType.STRING, 'tableOrNsName', 'UTF8', None, ),  # 1
     (2, TType.I32, 'scope', None, None, ),  # 2
 )
 

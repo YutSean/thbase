@@ -329,11 +329,11 @@ class ClientBase(object):
     @abc.abstractmethod
     def table_exists(self, table_name):
         """
-
+        Check if a given table exists.
         Args:
             table_name:
 
-        Returns:
+        Returns: True if the table exists, else False.
 
         """
         pass

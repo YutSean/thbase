@@ -355,11 +355,11 @@ class Client(ClientBase):
 
     def table_exists(self, table_name):
         """
-
+        Check if a table exists.
         Args:
-            table_name:
+            table_name: type: TTableName
 
-        Returns:
+        Returns: True if the table exists, else False.
 
         """
         type_check(table_name, str)
