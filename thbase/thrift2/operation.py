@@ -50,7 +50,7 @@ class Get(Operation):
                          timestamp=None,
                          timeRange=None,
                          maxVersions=self.maxVersions,
-                         filterString=filter_string,
+                         filterString=to_bytes(filter_string),
                          filterBytes=filter_bytes)
 
 
@@ -91,7 +91,7 @@ class Scan(Operation):
             columns=_column_format(self.family, self.qualifier),
             maxVersions=max_versions,
             reversed=self.reversed,
-            filterString=filter_string,
+            filterString=to_bytes(filter_string),
             filterBytes=filter_bytes
         )
 
