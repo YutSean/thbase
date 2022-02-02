@@ -38,7 +38,9 @@ class Get(Operation):
                  family=None,  # type: Union[None, str]
                  qualifier=None,  # type: Union[None, str, List[str]]
                  value=None,  # type: Union[None, str]
-                 max_versions=None  # type: Union[None, int]
+                 max_versions=None,  # type: Union[None, int]
+                 filter_string=None,  # type: str
+                 filter_bytes=None,  # type: bytes
                  ):
         super(Get, self).__init__(row, family, qualifier, value)
         check_none(self.row, "Row cannot be none for Get operation.")
@@ -46,7 +48,10 @@ class Get(Operation):
         self.core = TGet(row=self.row,
                          columns=_column_format(family, qualifier),
                          timestamp=None,
-                         timeRange=None, maxVersions=self.maxVersions)
+                         timeRange=None,
+                         maxVersions=self.maxVersions,
+                         filterString=filter_string,
+                         filterBytes=filter_bytes)
 
 
 class Delete(Operation):
@@ -73,6 +78,8 @@ class Scan(Operation):
                  num_rows=5000,  # type: int
                  max_versions=None,  # type: Union[None, int]
                  reversed=False,  # type: Union[bool]
+                 filter_string=None,  # type:str
+                 filter_bytes=None,  # type:bytes
                  ):
         super(Scan, self).__init__(start_row, family, qualifier, None)
         self.reversed = reversed
@@ -84,6 +91,8 @@ class Scan(Operation):
             columns=_column_format(self.family, self.qualifier),
             maxVersions=max_versions,
             reversed=self.reversed,
+            filterString=filter_string,
+            filterBytes=filter_bytes
         )
 
 
