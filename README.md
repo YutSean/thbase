@@ -100,7 +100,11 @@ def demo_func(conf):
             # do sth
         
         # single get operation
-        g = Get(row=row_key,family="your_column_family",qualifier="your_coloumn_qualifier",max_versions=your_max_version)
+        g = Get(row=row_key,
+                family="your_column_family",
+                qualifier="your_coloumn_qualifier",
+                max_versions=your_max_version,
+                filter_string="your_filter_string")
         result = table.get(g)
         
         # batch get operation
@@ -135,7 +139,8 @@ def demo_func(conf):
                     family="your_column_family",
                     qualifier="your_column_qualifier",
                     max_versions="your_max_version",
-                    reversed="if_reverse_results")
+                    reversed="if_reverse_results",
+                    filter_string="your_filter_string")
         results = table.scan(scan=scan)
         print [str(r) for r in results]
         # don't forget to close the connection after using.
