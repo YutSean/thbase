@@ -109,12 +109,12 @@ class Put(Operation):
         check_none(self.value, "Value cannot be none for Put operation.")
         column_values = []
         columns = _column_format(family, qualifier)
-        if isinstance(value, str):
+        if isinstance(value, str) or isinstance(value, bytes) or isinstance(value, bytearray):
             for col in columns:
                 column_values.append(TColumnValue(
                     family=to_bytes(col.family),
                     qualifier=to_bytes(col.qualifier),
-                    value=self.value
+                    value=to_bytes(self.value)
                 ))
         elif isinstance(value, list) or isinstance(value, tuple):
             if len(columns) != len(value):
