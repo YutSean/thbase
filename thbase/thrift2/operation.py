@@ -150,13 +150,10 @@ def _column_format(family, qualifier):
     family_bytes = to_bytes(family)
     if qualifier is None:
         return [TColumn(family=family_bytes)]
-    if isinstance(qualifier, str):
-        return [TColumn(family=family_bytes, qualifier=to_bytes(qualifier))]
     if isinstance(qualifier, list) or isinstance(qualifier, tuple):
         cols = []
         for cq in qualifier:
-            if isinstance(cq, str) or cq is None:
-                cols.append(TColumn(family=family_bytes, qualifier=to_bytes(cq)))
-            else:
-                raise ValueError("Qualifier should be None, str or a list (tuple) of str")
+            cols.append(TColumn(family=family_bytes, qualifier=to_bytes(cq)))
         return cols
+
+    return [TColumn(family=family_bytes, qualifier=to_bytes(qualifier))]

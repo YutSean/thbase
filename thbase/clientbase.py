@@ -105,8 +105,8 @@ class ClientBase(object):
 
     def close_connection(self):
         """
-        This method close the current connection. The close() will not raise any exception and will always success.
-        Returns: None
+        This method close the current connection. The close() will not raise any exception and
+        will always success. Returns: None
 
         """
         if self.connection.is_open():
@@ -148,8 +148,8 @@ class ClientBase(object):
             table_name: a str representation of Table name, including the namespace part.
             get: a Get object.
 
-        Returns:
-            A list of Cells if success. An empty list if the operation fails or the target cell does not exists.
+        Returns: A list of Cells if success. An empty list if the operation fails or the target
+        cell does not exists.
         """
         pass
 

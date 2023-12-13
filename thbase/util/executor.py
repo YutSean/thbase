@@ -47,12 +47,13 @@ class Executor(object):
         for i in range(self._retry_times + 1):
             try:
                 result = func()
-                # if result is None, the func is Put, or Delete,
+                # if result is None, the func is Put, or Delete, or putMultiple.
                 # so should return a bool to represent if the operation successes.
-                if result is None:
+                # if reulst is an empty list, the func is deleteMultiple.
+                if result is None or result is []:
                     return True
-                # when result is not None, it contains a list of TResult objects with Get and Scan operation.
-                # so here return the list directly.
+                # when result is not None, it contains a list of TResult objects with Get and
+                # Scan operation. so here return the list directly.
                 return result
             except TException as e:
                 if not self.handler.handle(MessageType.ERROR, value=e):
